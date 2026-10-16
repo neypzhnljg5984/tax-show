@@ -218,10 +218,12 @@ footer{color:var(--ink3);font-size:12.5px;text-align:center;padding:22px 0 0}
       <div id="per100"></div>
     </div>
     <div>
-      <h3 style="font-size:15px;margin-bottom:10px">资金流向（桑基图）</h3>
-      <div class="chartbox" id="sankey"></div>
+      <h3 style="font-size:15px;margin-bottom:10px">怎么读下面这张图</h3>
+      <div id="readGuide"></div>
     </div>
   </div>
+  <h3 style="font-size:15px;margin:26px 0 10px">资金流向（桑基图）：柱子高度就是金额，连线就是去向</h3>
+  <div class="chartbox" id="sankey"></div>
 </section>
 
 <!-- ================= 3 曲线 ================= -->
@@ -460,12 +462,31 @@ function renderBreakdown(){
     <b>${(r.indirect_tax/total*100).toFixed(1)} 元</b> 是消费环节间接税；
     <b>${((r.ind_social+r.ind_pf+r.unit_social+r.unit_pf)/total*100).toFixed(1)} 元</b> 进入社保与公积金（属于个人保障权益与个人资产，不是税）；
     <b>${(r.monthly_tax/total*100).toFixed(1)} 元</b> 是个人所得税。</div>`;
+  renderReadGuide(r,total);
   renderSankey(r,total);
+}
+
+/* ---------- 桑基图读法说明 ---------- */
+function renderReadGuide(r,total){
+  const extra=r.unit_social+r.unit_pf, deducted=r.ind_social+r.ind_pf+r.monthly_tax;
+  document.getElementById('readGuide').innerHTML=`
+    <div style="font-size:13.5px;line-height:1.9">
+      <div><b>第①→②列</b>：公司掏的钱分成三块——<b>税前工资</b>（给员工）+ <b>单位社保</b> + <b>单位公积金</b>（公司额外承担，<u>不会</u>从工资里再扣一次）。</div>
+      <div><b>第②→③列</b>：税前工资又被分成四块——个人社保、个人公积金、个税、<b>到手现金</b>。</div>
+      <div><b>第③→④列</b>：到手现金按 10% 假设拆成消费环节间接税与<b>最终消费价值</b>。</div>
+    </div>
+    <div class="kpis" style="margin-top:14px">
+      <div class="kpi"><div class="k">公司额外支出（不含工资）</div><div class="v num">${yuan(extra)}</div><div class="s">占公司成本 ${pct(extra/total)}</div></div>
+      <div class="kpi"><div class="k">个人当月被扣</div><div class="v num">${yuan(deducted)}</div><div class="s">社保+公积金+个税，占 ${pct(deducted/total)}</div></div>
+      <div class="kpi hl"><div class="k">最终消费价值</div><div class="v num">${yuan(r.final_value)}</div><div class="s">占公司成本 ${pct(r.final_value/total)}</div></div>
+    </div>
+    <div class="tiny" style="margin-top:8px">单位社保与公积金合计 ${yuan(extra)}：其中公积金 ${yuan(r.unit_pf)} 是员工个人资产，社保 ${yuan(r.unit_social)} 形成员工的养老／医疗／失业／工伤保障权益，二者都不是税。</div>`;
 }
 
 /* ---------- 桑基图 ---------- */
 function renderSankey(r,total){
-  const W=Math.max(520,document.getElementById('sankey').clientWidth||560), H=360;
+  const host=document.getElementById('sankey');
+  const W=Math.max(880,host.clientWidth||1000), H=400;
   const cols=[
     [{k:'cost',n:'公司人工成本',v:total,c:'#1d2b45'}],
     [{k:'uniSoc',n:'单位社保',v:r.unit_social,c:C.uniSoc.c},{k:'uniPf',n:'单位公积金',v:r.unit_pf,c:C.uniPf.c},{k:'gross',n:'税前工资',v:r.salary,c:'#5a6b7d'}],
@@ -475,55 +496,89 @@ function renderSankey(r,total){
   const links=[[[0,0],[1,0]],[[0,0],[1,1]],[[0,0],[1,2]],
                [[1,2],[2,0]],[[1,2],[2,1]],[[1,2],[2,2]],[[1,2],[2,3]],
                [[2,3],[3,0]],[[2,3],[3,1]]];
-  const colX=[8,W*0.36,W*0.68,W-96];
-  const barW=15, gap=16, top=16, usable=H-top*2;
-  // 布局
-  cols.forEach((col,ci)=>{
-    const sum=col.reduce((a,b)=>a+b.v,0);
-    const avail=usable-gap*(col.length-1);
-    let y=top;
-    col.forEach(node=>{ node.h=Math.max(2.5,avail*node.v/sum); node.y=y; node.cy=y+node.h/2; node.used=0; y+=node.h+gap; });
-  });
-  // 标签防重叠：每列按最小间距 27px 重排标签纵向位置
-  const LABEL_GAP=27;
+  const barW=17, gap=18, top=20, LBL=132, RGT=156;
+  const x0=LBL, x3=W-RGT, span=x3-x0;
+  const colX=[x0-span*0.06, x0+span*0.40, x0+span*0.70, x3];
+  const usable=H-top*2;
+
+  // ---- 节点布局：全局统一比例 k（像素/元），保证柱子高度与连线宽度一一对应 ----
+  const maxGaps=Math.max(...cols.map(c=>c.length-1));
+  const k=(usable-gap*maxGaps)/total;          // 同一金额在任何一列都占同样高度
   cols.forEach(col=>{
-    const items=col.map(n=>({n,y:n.cy}));
-    items.sort((a,b)=>a.y-b.y);
-    for(let i=1;i<items.length;i++) if(items[i].y-items[i-1].y<LABEL_GAP) items[i].y=items[i-1].y+LABEL_GAP;
-    const maxY=H-14;
-    for(let i=items.length-1;i>=0;i--) if(items[i].y>maxY) items[i].y=maxY-(items.length-1-i)*LABEL_GAP;
-    for(let i=1;i<items.length;i++) if(items[i].y-items[i-1].y<LABEL_GAP) items[i].y=items[i-1].y+LABEL_GAP;
+    const colH=col.reduce((a,n)=>a+k*n.v,0)+gap*(col.length-1);
+    let y=top+(usable-colH)/2;                 // 各列按自身总高垂直居中
+    col.forEach(node=>{
+      node.h=Math.max(1.5,k*node.v);           // 极小金额（如个税为 0）至少留一条细线
+      node.y=y; node.cy=y+node.h/2;
+      node.usedIn=0; node.usedOut=0;           // 流入、流出分别记账，互不干扰
+      y+=node.h+gap;
+    });
+  });
+
+  // ---- 标签纵向避让（每列独立，最小间距 30px），偏移后用引线连回节点 ----
+  cols.forEach(col=>{
+    const GAP=30, items=col.map(n=>({n,y:n.cy})).sort((a,b)=>a.y-b.y);
+    const push=(arr)=>{ for(let i=1;i<arr.length;i++) if(arr[i].y-arr[i-1].y<GAP) arr[i].y=arr[i-1].y+GAP; };
+    push(items);
+    const over=items[items.length-1].y-(H-16);
+    if(over>0) items.forEach(it=>it.y-=over);
+    push(items);
     items.forEach(it=>{ it.n.labelY=it.y; });
   });
-  const path=(x1,y1,x2,y2)=>{const mx=(x1+x2)/2;return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;};
-  let svg=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
-  // 连线
+
+  const ribbon=(x1,y1,h1,x2,y2,h2)=>{
+    const mx=(x1+x2)/2;
+    return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2} L${x2},${y2+h2} C${mx},${y2+h2} ${mx},${y1+h1} ${x1},${y1+h1} Z`;
+  };
+  let svg=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="inherit">`;
+
+  // ---- 层标题 ----
+  const heads=['① 公司实际人工成本','② 成本的两部分','③ 税前工资的去向','④ 到手现金的去向'];
+  [x0,colX[1],colX[2],colX[3]].forEach((x,i)=>{
+    const anchor=i===3?'end':'start';
+    svg+=`<text x="${i===3?x+barW:x}" y="12" font-size="11" fill="#8b9aab" text-anchor="${anchor}">${heads[i]}</text>`;
+  });
+
+  // ---- 连线：流出用 usedOut，流入用 usedIn；两端高度分别按各自柱子计算 ----
   links.forEach(([a,b])=>{
     const s=cols[a[0]][a[1]], t=cols[b[0]][b[1]];
     const v=Math.min(s.v,t.v);
-    const y1=s.y+s.used, y2=t.y+t.used;
     const h1=s.h*(v/s.v), h2=t.h*(v/t.v);
-    s.used+=h1; t.used+=h2;
-    svg+=`<path d="${path(colX[a[0]]+barW,y1+h1/2,colX[b[0]],y2+h2/2)}" stroke="${s.c}" stroke-opacity="0.32" stroke-width="${Math.max(1.2,Math.min(h1,h2))}" fill="none"/>`;
+    const y1=s.y+s.usedOut, y2=t.y+t.usedIn;
+    s.usedOut+=h1; t.usedIn+=h2;
+    svg+=`<path d="${ribbon(colX[a[0]]+barW,y1,h1,colX[b[0]],y2,h2)}" fill="${s.c}" fill-opacity="${a[0]===0?0.30:0.34}"/>`;
   });
-  // 节点 + 标签
+
+  // ---- 节点柱 + 标签（标签偏离节点中心时加引线）----
   cols.forEach((col,ci)=>{
     col.forEach(node=>{
-      svg+=`<rect x="${colX[ci]}" y="${node.y}" width="${barW}" height="${node.h}" rx="3" fill="${node.c}"/>`;
-      if(node.h<3) svg+=`<line x1="${colX[ci]}" y1="${node.labelY}" x2="${colX[ci]+barW}" y2="${node.labelY}" stroke="${node.c}" stroke-width="2"/>`;
-      const label=`${node.n}`;
-      const val=`${yuan(node.v)} · ${pct(node.v/total)}`;
-      if(ci===3||ci===0){
-        svg+=`<text x="${colX[ci]+barW+8}" y="${node.labelY-2}" font-size="12" fill="#1b2430" font-weight="600">${label}</text>`;
-        svg+=`<text x="${colX[ci]+barW+8}" y="${node.labelY+12}" font-size="11" fill="#5a6b7d">${val}</text>`;
+      svg+=`<rect x="${colX[ci]}" y="${node.y}" width="${barW}" height="${node.h}" rx="3.5" fill="${node.c}"/>`;
+      const label=node.n, val=`${yuan(node.v)} · ${pct(node.v/total)}`;
+      const right=(ci===0);              // 第一列标签放右侧，其余列放左侧，末列放右侧
+      const lx=right?colX[ci]+barW+9:colX[ci]-9;
+      const anchor=right?'start':'end';
+      const ly=node.labelY;
+      if(Math.abs(ly-node.cy)>2.5){       // 引线：把被推开的标签接回它自己的柱子
+        const ty=Math.max(node.y+1,Math.min(node.y+node.h-1,ly));
+        svg+=`<path d="M${colX[ci]-9},${ly} L${colX[ci]-4},${ly} L${colX[ci]-4},${ty}" stroke="#b9c8da" stroke-width="1" fill="none"/>`;
+      }
+      if(ci===3){   // 末列标签放右侧
+        svg+=`<text x="${colX[ci]+barW+9}" y="${ly-2}" font-size="12.5" fill="#1b2430" font-weight="600">${label}</text>`;
+        svg+=`<text x="${colX[ci]+barW+9}" y="${ly+13}" font-size="11.5" fill="#5a6b7d">${val}</text>`;
+      }else if(ci===0){
+        svg+=`<text x="${lx}" y="${ly-2}" font-size="12.5" fill="#1b2430" font-weight="600" text-anchor="${anchor}">${label}</text>`;
+        svg+=`<text x="${lx}" y="${ly+13}" font-size="11.5" fill="#5a6b7d" text-anchor="${anchor}">${val}</text>`;
       }else{
-        svg+=`<text x="${colX[ci]-6}" y="${node.labelY-2}" font-size="12" fill="#1b2430" font-weight="600" text-anchor="end">${label}</text>`;
-        svg+=`<text x="${colX[ci]-6}" y="${node.labelY+12}" font-size="11" fill="#5a6b7d" text-anchor="end">${val}</text>`;
+        svg+=`<text x="${lx}" y="${ly-2}" font-size="12.5" fill="#1b2430" font-weight="600" text-anchor="${anchor}">${label}</text>`;
+        svg+=`<text x="${lx}" y="${ly+13}" font-size="11.5" fill="#5a6b7d" text-anchor="${anchor}">${val}</text>`;
       }
     });
   });
+
+  // ---- 金额守恒提示 ----
+  svg+=`<text x="${x0}" y="${H-6}" font-size="11" fill="#8b9aab">每一列金额合计都等于公司人工成本 ${yuan(total)}，钱没有凭空产生或消失；宽度即金额。</text>`;
   svg+='</svg>';
-  document.getElementById('sankey').innerHTML=svg;
+  host.innerHTML=svg;
 }
 
 /* ---------- 曲线 ---------- */
@@ -731,23 +786,29 @@ function renderPolicy(){
       <dl>${r.map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join('')}</dl></div>`;
   };
   const pc=(x)=>x===null?'—':pct(x);
+  const link=(u)=>u?` <a href="${u}" target="_blank" rel="noopener" style="font-size:12px">原文</a>`:'';
   let h='';
   h+=one('社保缴费基数上下限 · 养老',p.conf.base,[
     ['缴费基数下限',fmt(p.base.pension[0])+' 元'],['缴费基数上限',fmt(p.base.pension[1])+' 元']]);
-  h+=one('职工医保（含生育）',p.conf.base,[
+  h+=one('养老保险费率'+link(p.src.pension),p.conf.pension,[
+    ['单位费率',pc(p.rates.pension_u)],['个人费率',pc(p.rates.pension_i)],
+    ['全国标准','单位16%、个人8%（国办发〔2019〕13号）']]);
+  h+=one('职工医保（含生育）费率'+link(p.src.medical),p.conf.medical,[
     ['单位费率',pc(p.rates.medical_u)],['个人费率',pc(p.rates.medical_i)],
     ['基数下限 / 上限',fmt(p.base.medical[0])+' / '+fmt(p.base.medical[1])+' 元'],
     ['生育保险','已并入医保，单位费率中含生育保险']]);
-  h+=one('养老 / 失业 / 工伤（费率）',p.conf.rates,[
-    ['养老 单位 / 个人',pc(p.rates.pension_u)+' / '+pc(p.rates.pension_i)],
-    ['失业 单位 / 个人',pc(p.rates.unemp_u)+' / '+pc(p.rates.unemp_i)],
-    ['工伤 单位（一类行业）',pc(p.rates.injury_u)],
-    ['失业基数下限 / 上限',fmt(p.base.unemp[0])+' / '+fmt(p.base.unemp[1])+' 元']]);
-  h+=one('住房公积金',p.conf.pf,[
+  h+=one('失业保险费率'+link(p.src.unemp),p.conf.unemp,[
+    ['单位费率',pc(p.rates.unemp_u)],['个人费率',pc(p.rates.unemp_i)],
+    ['合计',pc(p.rates.unemp_u+p.rates.unemp_i)+'（全国阶段性降费后总费率1%）'],
+    ['基数下限 / 上限',fmt(p.base.unemp[0])+' / '+fmt(p.base.unemp[1])+' 元']]);
+  h+=one('工伤保险费率 · 一类行业'+link(p.src.injury),p.conf.injury,[
+    ['单位费率',pc(p.rates.injury_u)],['个人费率','0（个人不缴费）'],
+    ['全国基准','一类0.2%（人社部发〔2015〕71号），各地可阶段性下调或浮动']]);
+  h+=one('住房公积金'+link(p.src.pf),p.conf.pf,[
     ['缴存基数下限',fmt(p.pf.lo)+' 元'],['缴存基数上限',fmt(p.pf.hi)+' 元'],
     ['允许比例区间',pct(p.pf.ratio_range[0])+' ~ '+pct(p.pf.ratio_range[1])],
     ['本表采用比例','单位 '+pc(p.pf.u)+' · 个人 '+pc(p.pf.i)]]);
-  h+=one('最低工资标准',p.conf.min_wage,[['月最低工资（省会/一类档）',fmt(p.min_wage)+' 元']]);
+  h+=one('最低工资标准'+link(p.src.min_wage),p.conf.min_wage,[['月最低工资（省会/一类档）',fmt(p.min_wage)+' 元']]);
   h+=one('个人所得税（全国统一）','high',[
     ['年度基本减除费用',fmt(meta.basic_deduction_annual)+' 元'],
     ['税率结构','3% / 10% / 20% / 25% / 30% / 35% / 45% 七级超额累进'],
@@ -757,7 +818,8 @@ function renderPolicy(){
   document.getElementById('policyCards').innerHTML=h;
 
   // 来源
-  const src=p.src, nm={base:'社保缴费基数',pf:'住房公积金',min_wage:'最低工资',base_doc:'政策依据'};
+  const src=p.src, nm={base:'社保缴费基数',base_doc:'基数政策依据',pension:'养老保险费率',medical:'医保费率',
+                       unemp:'失业保险费率',injury:'工伤保险费率',pf:'住房公积金',min_wage:'最低工资'};
   let sh=`<div style="font-size:13.5px"><b>当前省份：${p.name}</b><ul class="note-list">`;
   Object.entries(src).forEach(([k,v])=>{ if(v) sh+=`<li>${nm[k]||k}：${v.startsWith('http')?`<a href="${v}" target="_blank" rel="noopener">${v}</a>`:v}</li>`; });
   sh+='</ul><div class="small muted">说明：本表逐省核对官方文件；未取到当年原文的项目已在“局限与不确定性”中列明。</div></div>';
@@ -781,7 +843,8 @@ function renderPolicy(){
   document.getElementById('limits').innerHTML=[
     '<b>省级口径与城市口径混用：</b>广东采用广州口径（养老按全省标准、医保按广州市标准、公积金按广州市标准）；江苏取南京公积金、浙江取杭州、四川取成都、河南取郑州等省会口径。省内其他城市差异可能显著。',
     '<b>计划单列市与省内差异城市未单独建模：</b>深圳、大连、青岛、宁波等地的社保或医保基数与所在省不同；河北、陕西、四川、福建等省医保基数存在市级差异。',
-    '<b>费率的不确定性：</b>各省医疗、失业、工伤费率多以“模型值”标注——这些费率由各地自行规定且部分处于阶段性降费期，本表采用公开常见口径，可能与最新文件存在 0.5~2 个百分点的差异。',
+    '<b>医疗费率仍以“模型值”为主（26 省）：</b>职工医保单位费率由各统筹地区自定且近年调整频繁（例如上海阶段性降至9%、2026年2月28日到期；厦门2026年升至7.5%；阜新2026年升至8%；广州由4.5%恢复为6%）。本表仅广东（广州）、河北、海南、福建、上海等已找到文件，其余按公开常见口径测算，可能与当地现行费率相差0.5~2个百分点。',
+    '<b>工伤与失业已改用法定基准并逐省校正：</b>工伤一类行业按全国基准0.2%（人社部发〔2015〕71号），并对已查实下调的省份作了修正（四川0.24%、辽宁与上海0.2%、陕西一类不下调、山东与青海阶段性下调20%、海南与内蒙古下调50%）；失业保险按全国1%总费率分配（四川0.6%/0.4%、北京与广东0.8%/0.2%、多数省份0.5%/0.5%）。标注“待核实”的省份，是因当地阶段性降费政策原执行至2025年底、2026年是否延续未能核到文件。',
     '<b>吉林：</b>采用 2025 社保年度（至 2026 年 6 月 30 日）标准，2026 年 7 月起新标准未核实。',
     '<b>黑龙江、海南、贵州、西藏：</b>基数数值来自官方转载或政策汇编，建议以省级人社厅原文复核。',
     '<b>最低工资：</b>湖南、广西、重庆、西藏、青海、宁夏、新疆等地的月最低工资标准未取到 2026 年最新官方值，采用最近一期数据，仅影响“是否低于最低工资”的提示。',

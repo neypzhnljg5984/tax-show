@@ -90,9 +90,12 @@ for p in pol["provinces"]:
         "公积金下限": p["pf"]["lo"], "公积金上限": p["pf"]["hi"],
         "公积金单位比例(%)": p["pf"]["u"] * 100, "公积金个人比例(%)": p["pf"]["i"] * 100,
         "最低工资": p["min_wage"],
-        "基数可信度": p["conf"]["base"], "费率可信度": p["conf"]["rates"],
+        "基数可信度": p["conf"]["base"],
+        "养老费率可信度": p["conf"]["pension"], "医保费率可信度": p["conf"]["medical"],
+        "失业费率可信度": p["conf"]["unemp"], "工伤费率可信度": p["conf"]["injury"],
         "公积金可信度": p["conf"]["pf"], "最低工资可信度": p["conf"]["min_wage"],
         "政策依据": p["src"].get("base_doc", ""), "来源链接": p["src"].get("base", ""),
+        "费率来源": p["src"].get("injury", ""),
     })
 df_pol = pd.DataFrame(prows)
 

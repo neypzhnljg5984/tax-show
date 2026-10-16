@@ -3,17 +3,62 @@
     "title": "中国31个省级行政区职工税费与最终消费能力测算政策参数集",
     "as_of": "2026-10-16",
     "currency": "CNY",
-    "salary_levels": [3000, 4000, 5000, 6000, 7000, 8000, 10000, 12000, 15000, 20000, 30000, 50000, 80000, 100000, 150000, 200000],
-    "indirect_tax_rate": 0.10,
+    "salary_levels": [
+      3000,
+      4000,
+      5000,
+      6000,
+      7000,
+      8000,
+      10000,
+      12000,
+      15000,
+      20000,
+      30000,
+      50000,
+      80000,
+      100000,
+      150000,
+      200000
+    ],
+    "indirect_tax_rate": 0.1,
     "basic_deduction_annual": 60000,
     "pit_brackets_annual": [
-      {"up_to": 36000, "rate": 0.03, "quick": 0},
-      {"up_to": 144000, "rate": 0.10, "quick": 2520},
-      {"up_to": 300000, "rate": 0.20, "quick": 16920},
-      {"up_to": 420000, "rate": 0.25, "quick": 31920},
-      {"up_to": 660000, "rate": 0.30, "quick": 52920},
-      {"up_to": 960000, "rate": 0.35, "quick": 85920},
-      {"up_to": null, "rate": 0.45, "quick": 181920}
+      {
+        "up_to": 36000,
+        "rate": 0.03,
+        "quick": 0
+      },
+      {
+        "up_to": 144000,
+        "rate": 0.1,
+        "quick": 2520
+      },
+      {
+        "up_to": 300000,
+        "rate": 0.2,
+        "quick": 16920
+      },
+      {
+        "up_to": 420000,
+        "rate": 0.25,
+        "quick": 31920
+      },
+      {
+        "up_to": 660000,
+        "rate": 0.3,
+        "quick": 52920
+      },
+      {
+        "up_to": 960000,
+        "rate": 0.35,
+        "quick": 85920
+      },
+      {
+        "up_to": null,
+        "rate": 0.45,
+        "quick": 181920
+      }
     ],
     "confidence_legend": {
       "high": "已在政府官网/税务官网原文中核实到该数值与生效日期",
@@ -26,474 +71,2163 @@
       "住房公积金按单位、个人各7%测算（在各地允许区间内），基数单独设上下限。",
       "工伤保险按一类低风险行业基准费率估算，实际费率随行业与浮动费率变化。",
       "生育保险已在全国范围并入职工医保，单位医疗费率中已包含生育保险，未重复计算。",
-      "本数据集不含深圳、大连、青岛、宁波等计划单列市或省内差异化城市口径，详见网页“局限与不确定性”。"
-    ]
+      "本数据集不含深圳、大连、青岛、宁波等计划单列市或省内差异化城市口径，详见网页“局限与不确定性”。",
+      "费率数据已按险种逐省查证：养老与工伤一类行业有全国统一基准，失业为全国1%总费率；标注为“模型值”的医疗费率及少数存在阶段性政策的工伤费率，仍为公开常见口径，未能逐省核到2026年官方原文。",
+      "医保费率已按省份逐条查证并更新（上海9%、天津10.5%、杭州9.5%、济南8%、武汉8%、长沙8.7%、成都7.55%、重庆8.5%、贵阳8%、福州8%、合肥6.4%、南昌6%、郑州7%、沈阳9.2%、西安6%、兰州9%、赤峰7%、北京9.8% 等），未查到原文的省份仍标注为模型值。"
+    ],
+    "rate_sources": {
+      "pension": {
+        "doc": "国办发〔2019〕13号《降低社会保险费率综合方案》：企业职工基本养老保险单位缴费比例高于16%的可降至16%；个人缴费比例8%全国统一。",
+        "url": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html"
+      },
+      "unemp": {
+        "doc": "人社部发〔2024〕40号等延续实施失业保险援企稳岗政策：失业保险继续执行1%的总费率（各省在单位与个人之间分配略有差异）。",
+        "url": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820"
+      },
+      "injury": {
+        "doc": "人社部发〔2015〕71号：工伤保险行业基准费率一类至八类为0.2%、0.4%、0.7%、0.9%、1.1%、1.3%、1.6%、1.9%。",
+        "url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
+      },
+      "medical": {
+        "doc": "职工基本医疗保险费由用人单位和职工共同缴纳，单位费率由各统筹地区自行确定；本表已逐省查证，共 22 省取到官方或政府转载口径，其余 7 省（吉林、黑龙江、江苏、广西、西藏、青海、宁夏）仍为公开常见口径的模型值。",
+        "url": "http://www.nhsa.gov.cn/"
+      }
+    }
   },
   "provinces": [
     {
-      "id": "beijing", "name": "北京市", "short": "北京", "region": "华北",
-      "base": {"pension": [7270, 36348], "medical": [7270, 36348], "unemp": [7270, 36348], "injury": [7270, 36348], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.098, "medical_i": 0.02, "unemp_u": 0.008, "unemp_i": 0.002, "injury_u": 0.002},
-      "pf": {"lo": 2540, "hi": 35811, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "beijing",
+      "name": "北京市",
+      "short": "北京",
+      "region": "华北",
+      "base": {
+        "pension": [
+          7270,
+          36348
+        ],
+        "medical": [
+          7270,
+          36348
+        ],
+        "unemp": [
+          7270,
+          36348
+        ],
+        "injury": [
+          7270,
+          36348
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.098,
+        "medical_i": 0.02,
+        "unemp_u": 0.008,
+        "unemp_i": 0.002,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2540,
+        "hi": 35811,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2540,
-      "conf": {"base": "high", "rates": "model", "pf": "medium", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "medium",
+        "min_wage": "high",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "2026年度企业职工社保缴费基数上下限（2026年7月起执行，上限36348元、下限7270元）",
         "pf": "https://ctghr.com/information/policyNews/4301",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://www.bjsjs.gov.cn/gongkai/zwgkpd/ztzl/2024/mtyfz/ybzcxwd/202410/t20241021_86349.shtml"
       },
-      "notes": ["医保个人另有大额互助3元/月，未计入。", "公积金上限沿用最近公布口径，待2026年度官方通知替换。"]
+      "notes": [
+        "医保个人另有大额互助3元/月，未计入。",
+        "公积金上限沿用最近公布口径，待2026年度官方通知替换。",
+        "北京失业保险长期执行单位0.8%、个人0.2%；工伤一类行业按全国基准0.2%。",
+        "北京市医保局口径：城镇职工基本医疗保险（含生育保险）单位缴费比例 9.8%，个人 2%（另有大额互助 3 元/月）。"
+      ]
     },
     {
-      "id": "tianjin", "name": "天津市", "short": "天津", "region": "华北",
-      "base": {"pension": [5180, 25902], "medical": [5180, 25902], "unemp": [5180, 25902], "injury": [5180, 25902], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.10, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2510, "hi": 25902, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "tianjin",
+      "name": "天津市",
+      "short": "天津",
+      "region": "华北",
+      "base": {
+        "pension": [
+          5180,
+          25902
+        ],
+        "medical": [
+          5180,
+          25902
+        ],
+        "unemp": [
+          5180,
+          25902
+        ],
+        "injury": [
+          5180,
+          25902
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.105,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2510,
+        "hi": 25902,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2510,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://tianjin.chinatax.gov.cn/11200000000/0300/030004/03000419/p20260824171546537.shtml",
         "base_doc": "津人社局发〔2026〕5号：养老、医疗（含生育）、失业、工伤基数最低5180元、最高25902元（2026年9月1日起执行）",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://www.tj.gov.cn/zwgk/szfgb/xqk/2026/12/bmgfxwj/202607/t20260703_7329233.html"
       },
-      "notes": ["公积金上限未核实，按本市职工月平均工资8634元×3倍（25902元）模型估算。"]
+      "notes": [
+        "公积金上限未核实，按本市职工月平均工资8634元×3倍（25902元）模型估算。",
+        "津医保规字〔2026〕1号：职工医保费缴费比例 12.5%，其中单位 10.5%、个人 2%（自2026年3月1日施行）。原表按10%测算，已上调为10.5%。"
+      ]
     },
     {
-      "id": "hebei", "name": "河北省", "short": "河北", "region": "华北",
-      "base": {"pension": [4076, 20382], "medical": [6794, 20382], "unemp": [4076, 20382], "injury": [4076, 20382], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2380, "hi": 20380, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "hebei",
+      "name": "河北省",
+      "short": "河北",
+      "region": "华北",
+      "base": {
+        "pension": [
+          4076,
+          20382
+        ],
+        "medical": [
+          6794,
+          20382
+        ],
+        "unemp": [
+          4076,
+          20382
+        ],
+        "injury": [
+          4076,
+          20382
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.065,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2380,
+        "hi": 20380,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2380,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium",
+        "medical": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "2026年社保缴费基数下限4076元、上限20382元；省本级职工医保基数依据6794元/月（2026.7-2027.6）",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "medical": "https://www.rrb365.com/news/20260825130209.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["河北医保为省本级口径，各市医保基数可能不同。", "公积金上限为模型估算（全口径月平均工资×3）。"]
+      "notes": [
+        "河北医保为省本级口径，各市医保基数可能不同。",
+        "公积金上限为模型估算（全口径月平均工资×3）。",
+        "河北医保单位费率6.5%（石家庄市明确2026年继续按6.5%执行）。",
+        "石家庄明确 2026 年职工医保单位费率继续按 6.5% 执行，本表以省会口径代表河北。"
+      ]
     },
     {
-      "id": "shanxi", "name": "山西省", "short": "山西", "region": "华北",
-      "base": {"pension": [4244, 21219], "medical": [4244, 21219], "unemp": [4244, 21219], "injury": [4244, 21219], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.07, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2150, "hi": 21219, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "shanxi",
+      "name": "山西省",
+      "short": "山西",
+      "region": "华北",
+      "base": {
+        "pension": [
+          4244,
+          21219
+        ],
+        "medical": [
+          4244,
+          21219
+        ],
+        "unemp": [
+          4244,
+          21219
+        ],
+        "injury": [
+          4244,
+          21219
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.07,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2150,
+        "hi": 21219,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2150,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "http://shanxi.chinatax.gov.cn/web/detail/sx-11400-522-1824057",
         "base_doc": "晋人社厅发〔2026〕27号：2026年缴费基数下限4244元、上限21219元，自2026年1月1日起执行",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://ybj.shanxi.gov.cn/xxfb/fdzdgknr/gzdt/202606/t20260604_10140414.html"
       },
-      "notes": ["公积金上限按全口径月平均工资7073元×3倍模型估算。"]
+      "notes": [
+        "公积金上限按全口径月平均工资7073元×3倍模型估算。",
+        "山西省医保局：用人单位按职工工资总额的 6% 左右缴纳，各统筹地区费率在 6%~8% 之间，本表取中值 7%，实际因城市而异。"
+      ]
     },
     {
-      "id": "neimenggu", "name": "内蒙古自治区", "short": "内蒙古", "region": "华北",
-      "base": {"pension": [5058, 25290], "medical": [6744, 25290], "unemp": [5058, 25290], "injury": [5058, 25290], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2380, "hi": 25290, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "neimenggu",
+      "name": "内蒙古自治区",
+      "short": "内蒙古",
+      "region": "华北",
+      "base": {
+        "pension": [
+          5058,
+          25290
+        ],
+        "medical": [
+          6744,
+          25290
+        ],
+        "unemp": [
+          5058,
+          25290
+        ],
+        "injury": [
+          5058,
+          25290
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.07,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.001
+      },
+      "pf": {
+        "lo": 2380,
+        "hi": 25290,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2380,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "high",
+        "injury": "low"
+      },
       "src": {
         "base": "https://rst.nmg.gov.cn/zfxxgk/fdzdgknr/zhengcewenjian/202608/t20260828_2945897.html",
         "base_doc": "内人社办发〔2026〕85号：养老/失业/工伤基数下限5058元、上限25290元；职工医保基数下限6744元、上限25290元",
         "pf": "",
-        "min_wage": "https://www.northnews.cn/finance/2026/1015/2527927.html"
+        "min_wage": "https://www.northnews.cn/finance/2026/1015/2527927.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "injury": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "medical": "https://ybj.chifeng.gov.cn/zwgk/ybyw/202603/t20260305_2738432.html"
       },
-      "notes": ["内蒙古职工医保基数下限为社平工资80%（6744元），高于养老下限，属全国少见情形。"]
+      "notes": [
+        "内蒙古职工医保基数下限为社平工资80%（6744元），高于养老下限，属全国少见情形。",
+        "内蒙古失业保险单位、个人各0.5%（官方转述）。工伤保险按基金结存月数下调：结存≥24个月下调50%（一类约0.1%）、18-23个月下调20%；该阶段性政策原执行至2025年底，2026年是否延续未核实。",
+        "赤峰市医保局：单位缴费费率 7%、个人 2%，本表以内蒙古代表城市口径取值。"
+      ]
     },
     {
-      "id": "liaoning", "name": "辽宁省", "short": "辽宁", "region": "东北",
-      "base": {"pension": [4533, 22665], "medical": [4533, 22665], "unemp": [4533, 22665], "injury": [4533, 22665], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.07, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2230, "hi": 22665, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "liaoning",
+      "name": "辽宁省",
+      "short": "辽宁",
+      "region": "东北",
+      "base": {
+        "pension": [
+          4533,
+          22665
+        ],
+        "medical": [
+          4533,
+          22665
+        ],
+        "unemp": [
+          4533,
+          22665
+        ],
+        "injury": [
+          4533,
+          22665
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.092,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2230,
+        "hi": 22665,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2230,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "high"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "辽宁2026年企业职工基本养老保险个人缴费基数上限22665元、下限4533元",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.ln.gov.cn/web/qmzx/5.15zwgkr(d20j)/zcztc/msbz/2026051514464579096/index.shtml",
+        "medical": "http://sy.bendibao.com/live/2025922/83913.shtm"
       },
-      "notes": ["大连市社保基数单独发布，本表采用省口径。"]
+      "notes": [
+        "大连市社保基数单独发布，本表采用省口径。",
+        "辽宁辽人社〔2026〕1号：自2026年1月1日起一类行业基准费率由0.3%下调为0.2%（执行至2028年12月31日）。",
+        "沈阳：医疗保险单位 8.6%、生育保险单位 0.6%，合并为 9.2%；个人 2%。原表按7%测算，已上调。"
+      ]
     },
     {
-      "id": "jilin", "name": "吉林省", "short": "吉林", "region": "东北",
-      "base": {"pension": [4393.2, 21966], "medical": [4393.2, 21966], "unemp": [4393.2, 21966], "injury": [4393.2, 21966], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.07, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2230, "hi": 28949, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "jilin",
+      "name": "吉林省",
+      "short": "吉林",
+      "region": "东北",
+      "base": {
+        "pension": [
+          4393.2,
+          21966
+        ],
+        "medical": [
+          4393.2,
+          21966
+        ],
+        "unemp": [
+          4393.2,
+          21966
+        ],
+        "injury": [
+          4393.2,
+          21966
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.07,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2230,
+        "hi": 28949,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2230,
-      "conf": {"base": "medium", "rates": "model", "pf": "medium", "min_wage": "high"},
+      "conf": {
+        "base": "medium",
+        "pf": "medium",
+        "min_wage": "high",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://xxgk.jl.gov.cn/zcbm/fgw_97992/xxgkmlqy/202509/t20250922_9324837.html",
         "base_doc": "吉人社联〔2025〕97号：2025.7.1-2026.6.30养老基数上限21966元、下限4393.2元；医保2025.10.1起同标准",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8258"
       },
-      "notes": ["2026年7月起的新基数尚未核实到官方原文，本表使用2025社保年度标准（截至2026年6月30日），可能与当前实际存在小幅差异。", "农垦企业另有独立口径。"]
+      "notes": [
+        "2026年7月起的新基数尚未核实到官方原文，本表使用2025社保年度标准（截至2026年6月30日），可能与当前实际存在小幅差异。",
+        "农垦企业另有独立口径。",
+        "吉林工伤按全国基准费率并实行浮动：一类行业只上浮不下浮，基准费率为0.2%。",
+        "未取到吉林省2026年医保单位费率官方原文，按公开常见口径 7% 测算。"
+      ]
     },
     {
-      "id": "heilongjiang", "name": "黑龙江省", "short": "黑龙江", "region": "东北",
-      "base": {"pension": [4623, 23115], "medical": [4623, 23115], "unemp": [4623, 23115], "injury": [4623, 23115], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.07, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2270, "hi": 23115, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "heilongjiang",
+      "name": "黑龙江省",
+      "short": "黑龙江",
+      "region": "东北",
+      "base": {
+        "pension": [
+          4623,
+          23115
+        ],
+        "medical": [
+          4623,
+          23115
+        ],
+        "unemp": [
+          4623,
+          23115
+        ],
+        "injury": [
+          4623,
+          23115
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.07,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2270,
+        "hi": 23115,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2270,
-      "conf": {"base": "medium", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "medium",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://ft22.com/gssj/sheping/202609/13871.html",
         "base_doc": "黑人社函〔2025〕611号确定2026年度企业职工基本养老保险使用的全口径平均工资；上下限为2026年度标准",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["官方原文为图片公告，上下限数值取自公开汇总，建议以黑龙江省人社厅原文复核。"]
+      "notes": [
+        "官方原文为图片公告，上下限数值取自公开汇总，建议以黑龙江省人社厅原文复核。",
+        "未取到黑龙江省2026年医保单位费率官方原文，按公开常见口径 7% 测算。"
+      ]
     },
     {
-      "id": "shanghai", "name": "上海市", "short": "上海", "region": "华东",
-      "base": {"pension": [7546, 37731], "medical": [7546, 37731], "unemp": [7546, 37731], "injury": [7546, 37731], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.10, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.0016},
-      "pf": {"lo": 2740, "hi": 37302, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.07]},
+      "id": "shanghai",
+      "name": "上海市",
+      "short": "上海",
+      "region": "华东",
+      "base": {
+        "pension": [
+          7546,
+          37731
+        ],
+        "medical": [
+          7546,
+          37731
+        ],
+        "unemp": [
+          7546,
+          37731
+        ],
+        "injury": [
+          7546,
+          37731
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.09,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2740,
+        "hi": 37302,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.07
+        ]
+      },
       "min_wage": 2740,
-      "conf": {"base": "high", "rates": "model", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "pension": "high",
+        "unemp": "high",
+        "injury": "high",
+        "medical": "high"
+      },
       "src": {
         "base": "https://rsj.sh.gov.cn/tgsgg_17341/20260818/t0035_1443203.html",
         "base_doc": "上海市人社局：2026年7月1日起社保缴费基数上限37731元/月、下限7546元/月（2025年度全口径月平均工资12577元）",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "medical": "https://ybj.sh.gov.cn/gfxwj/20260313/921e047144694b61b6df8ca0c5ef2cfc.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://law.esnai.cn/view/229964/"
       },
-      "notes": ["上海公积金缴存比例为5%-7%，本表统一采用7%（当地允许的上限）。", "上海工伤一类行业费率按0.16%估算。"]
+      "notes": [
+        "上海公积金缴存比例为5%-7%，本表统一采用7%（当地允许的上限）。",
+        "上海工伤一类行业费率按0.16%估算。",
+        "上海失业单位、个人各0.5%（沪人社规〔2024〕25号）。工伤一类按全国基准0.2%（沪人社规〔2026〕2号，2026-01-01起）。医保单位费率原本9.5%＋地方附加0.5%＝10%，阶段性降至9%的政策有效期至2026年2月28日，本表按恢复后的10%测算，若已延续降费则实际为9%。",
+        "沪医保规〔2026〕2号：单位继续执行 9%（基本医疗保险含生育 8.5%＋地方附加 0.5%），个人 2%，有效期至2027年2月28日。原表按10%测算，已下调为9%。"
+      ]
     },
     {
-      "id": "jiangsu", "name": "江苏省", "short": "江苏", "region": "华东",
-      "base": {"pension": [5025, 25127], "medical": [5025, 25127], "unemp": [5025, 25127], "injury": [5025, 25127], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2660, "hi": 42400, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "jiangsu",
+      "name": "江苏省",
+      "short": "江苏",
+      "region": "华东",
+      "base": {
+        "pension": [
+          5025,
+          25127
+        ],
+        "medical": [
+          5025,
+          25127
+        ],
+        "unemp": [
+          5025,
+          25127
+        ],
+        "injury": [
+          5025,
+          25127
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2660,
+        "hi": 42400,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2660,
-      "conf": {"base": "high", "rates": "model", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "high"
+      },
       "src": {
         "base": "http://jshrss.jiangsu.gov.cn/art/2026/10/8/art_77277_11838872.html",
         "base_doc": "苏人社发〔2026〕30号：2026年全省养老缴费基数上限25127元、下限5025元；医疗、失业、工伤、生育同标准（2026.1.1-12.31）",
         "pf": "https://m.163.com/dy/article/L36NBDD305199NPP.html",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://www.js.gov.cn/art/2024/1/9/art_64797_11121019.html"
       },
-      "notes": ["公积金采用南京市口径（上限42400元、下限2660元）。"]
+      "notes": [
+        "公积金采用南京市口径（上限42400元、下限2660元）。",
+        "江苏苏人社规〔2023〕2号：一类行业基准费率0.2%，且一类行业不向下浮动（有效期至2028年12月31日）。",
+        "未取到江苏省2026年医保单位费率官方原文（省内按统筹地区分别规定），按公开常见口径 8% 测算。"
+      ]
     },
     {
-      "id": "zhejiang", "name": "浙江省", "short": "浙江", "region": "华东",
-      "base": {"pension": [5122, 25611], "medical": [5122, 25611], "unemp": [5122, 25611], "injury": [5122, 25611], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.085, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2660, "hi": 42151, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "zhejiang",
+      "name": "浙江省",
+      "short": "浙江",
+      "region": "华东",
+      "base": {
+        "pension": [
+          5122,
+          25611
+        ],
+        "medical": [
+          5122,
+          25611
+        ],
+        "unemp": [
+          5122,
+          25611
+        ],
+        "injury": [
+          5122,
+          25611
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.095,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2660,
+        "hi": 42151,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2660,
-      "conf": {"base": "high", "rates": "medium", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "high",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://rlsbt.zj.gov.cn/col/col1229506773/art/2026/art_2b4555c11a034b9e874038cbff2f84fb.html",
         "base_doc": "浙人社发〔2026〕52号：2026年度缴费基数上限25611元/月、下限5122元/月（2025年度加权平均工资102446元）",
         "pf": "https://m.163.com/dy/article/L36NBDD305199NPP.html",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://www.hzarchives.org.cn/info/12455"
       },
-      "notes": ["政策解读已明确单位养老费率16%、个人8%。", "公积金采用杭州市口径（上限42151元、下限2660元）。"]
+      "notes": [
+        "政策解读已明确单位养老费率16%、个人8%。",
+        "公积金采用杭州市口径（上限42151元、下限2660元）。",
+        "浙江失业保险单位、个人各0.5%（阶段性降费，官方转述）；养老保险单位费率经政策解读确认为16%。",
+        "《杭州市基本医疗保障办法》（2026年1月1日施行）：单位缴费比例 9.5%（含生育保险 0.6%），个人 2%。原表按8.5%测算，已上调。"
+      ]
     },
     {
-      "id": "anhui", "name": "安徽省", "short": "安徽", "region": "华东",
-      "base": {"pension": [4354, 21772], "medical": [4354, 21772], "unemp": [4354, 21772], "injury": [4354, 21772], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2320, "hi": 31564, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "anhui",
+      "name": "安徽省",
+      "short": "安徽",
+      "region": "华东",
+      "base": {
+        "pension": [
+          4354,
+          21772
+        ],
+        "medical": [
+          4354,
+          21772
+        ],
+        "unemp": [
+          4354,
+          21772
+        ],
+        "injury": [
+          4354,
+          21772
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.064,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2320,
+        "hi": 31564,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2320,
-      "conf": {"base": "high", "rates": "model", "pf": "medium", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "medium",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "安徽2026年社保缴费基数上限21772元/月、下限4354元/月",
         "pf": "https://m.163.com/dy/article/L36NBDD305199NPP.html",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.hf.bendibao.com/live/68396.shtm"
       },
-      "notes": ["公积金上限31564元为省级/合肥口径。"]
+      "notes": [
+        "公积金上限31564元为省级/合肥口径。",
+        "合肥：其他用人单位按 6.4% 缴纳（国家机关、事业单位 6.2%），个人 2%。本表采用企业口径。"
+      ]
     },
     {
-      "id": "fujian", "name": "福建省", "short": "福建", "region": "华东",
-      "base": {"pension": [4579, 22893], "medical": [4579, 22893], "unemp": [4579, 22893], "injury": [4579, 22893], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2195, "hi": 32430, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "fujian",
+      "name": "福建省",
+      "short": "福建",
+      "region": "华东",
+      "base": {
+        "pension": [
+          4579,
+          22893
+        ],
+        "medical": [
+          4579,
+          22893
+        ],
+        "unemp": [
+          4579,
+          22893
+        ],
+        "injury": [
+          4579,
+          22893
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2195,
+        "hi": 32430,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2265,
-      "conf": {"base": "high", "rates": "model", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "high",
+        "medical": "medium"
+      },
       "src": {
         "base": "https://rst.fujian.gov.cn/zw/zfxxgk/zfxxgkml/zyywgz/ldgx/202610/t20261008_7221778.htm",
         "base_doc": "闽人社文〔2026〕13号：2026年养老、失业缴费基数上限22893元、下限4579元；医保（含生育）和工伤同为22893/4579（2026.7.1起）",
         "pf": "https://m.163.com/dy/article/L36NBDD305199NPP.html",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "medical": "https://m.fz.bendibao.com/live/68400.shtm",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8258"
       },
-      "notes": ["养老保险个人缴费基数下限分企业（4579元）与机关事业两类，本表采用企业口径。", "公积金采用福州市口径。"]
+      "notes": [
+        "养老保险个人缴费基数下限分企业（4579元）与机关事业两类，本表采用企业口径。",
+        "公积金采用福州市口径。",
+        "福建明确一类至八类工伤基准费率为0.2%~1.9%（按全国基准）。福建医保费率存在城市差异：2026年厦门为单位7.5%、个人2%。",
+        "福州市政府口径：用人单位按职工月工资总额的 8% 缴纳基本医疗保险费（含生育保险、长期护理保险），个人 2%。原表按6.5%测算，已上调。"
+      ]
     },
     {
-      "id": "jiangxi", "name": "江西省", "short": "江西", "region": "华中",
-      "base": {"pension": [3990, 19947], "medical": [3990, 19947], "unemp": [3990, 19947], "injury": [3990, 19947], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2240, "hi": 19947, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "jiangxi",
+      "name": "江西省",
+      "short": "江西",
+      "region": "华中",
+      "base": {
+        "pension": [
+          3990,
+          19947
+        ],
+        "medical": [
+          3990,
+          19947
+        ],
+        "unemp": [
+          3990,
+          19947
+        ],
+        "injury": [
+          3990,
+          19947
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.06,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2240,
+        "hi": 19947,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2240,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://www.jgsdaily.com/19/19qysj/19tt/162427.shtml",
         "base_doc": "江西省人社厅等三部门（2026年10月9日）：2026年养老、工伤、失业使用的缴费基数为6649元，月缴费基数下限3990元、上限19947元",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://ybj.nc.gov.cn/ncylbzj/lzyj/202505/e9563f71975a4e229d09c47c33db96aa.shtml"
       },
-      "notes": ["江西2026年度上下限较2025年度（3915/19575）上调约2%，已按官方原文更新。", "医疗保险基数由医保部门另行规定，本表暂按同一基数测算；公积金上限为模型估算。"]
+      "notes": [
+        "江西2026年度上下限较2025年度（3915/19575）上调约2%，已按官方原文更新。",
+        "医疗保险基数由医保部门另行规定，本表暂按同一基数测算；公积金上限为模型估算。",
+        "南昌市城镇职工基本医疗保险管理办法：单位 6%、个人 2%。该文件发布较早，2026 年是否调整未核实。"
+      ]
     },
     {
-      "id": "shandong", "name": "山东省", "short": "山东", "region": "华东",
-      "base": {"pension": [4573, 22863], "medical": [4573, 22863], "unemp": [4573, 22863], "injury": [4573, 22863], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2400, "hi": 22863, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "shandong",
+      "name": "山东省",
+      "short": "山东",
+      "region": "华东",
+      "base": {
+        "pension": [
+          4573,
+          22863
+        ],
+        "medical": [
+          4573,
+          22863
+        ],
+        "unemp": [
+          4573,
+          22863
+        ],
+        "injury": [
+          4573,
+          22863
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.0016
+      },
+      "pf": {
+        "lo": 2400,
+        "hi": 22863,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2400,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "low",
+        "medical": "high"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "山东2026年社保缴费基数上限22863元/月、下限4573元/月",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8101",
+        "medical": "http://ybj.jinan.gov.cn/col/col116777/art/2026/art_d23ae2576b954cefa27abf820b467a04.html"
       },
-      "notes": ["山东公积金基数由各市分别公布，本表按全口径月平均工资×3倍模型估算上限。"]
+      "notes": [
+        "山东公积金基数由各市分别公布，本表按全口径月平均工资×3倍模型估算上限。",
+        "山东2025年度工伤保险行业基准费率整体下调20%（一类0.2%→0.16%）；2026年度是否继续按下调后费率执行未核实。",
+        "济南市医保局：单位 8%（含生育保险 1%）＋个人 2%（2026年9月1日起执行）。"
+      ]
     },
     {
-      "id": "henan", "name": "河南省", "short": "河南", "region": "华中",
-      "base": {"pension": [3912, 19560], "medical": [3912, 19560], "unemp": [3912, 19560], "injury": [3912, 19560], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2350, "hi": 28849, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "henan",
+      "name": "河南省",
+      "short": "河南",
+      "region": "华中",
+      "base": {
+        "pension": [
+          3912,
+          19560
+        ],
+        "medical": [
+          3912,
+          19560
+        ],
+        "unemp": [
+          3912,
+          19560
+        ],
+        "injury": [
+          3912,
+          19560
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.07,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2350,
+        "hi": 28849,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2350,
-      "conf": {"base": "high", "rates": "model", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "low"
+      },
       "src": {
         "base": "http://www.zgwg.gov.cn/contents/65386/472924.html",
         "base_doc": "自2026年7月1日起，河南各项社会保险缴费基数核定工资6520元/月，下限3912元、上限19560元，五险统一执行",
         "pf": "https://newpaper.dahe.cn/hnsb/resfile/2026-08-18/A06/hnsb20260818A06.pdf",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.zz.bendibao.com/live/50975.shtm"
       },
-      "notes": ["公积金采用郑州市口径（上限28849元、下限2350元）。"]
+      "notes": [
+        "公积金采用郑州市口径（上限28849元、下限2350元）。",
+        "河南历年多次实施阶段性降低工伤保险费率，2026年是否仍有下调未核实，本表按全国基准0.2%测算。",
+        "郑州：职工医保单位 8%，目前阶段性调低 1 个百分点至 7%，个人 2%。本表采用阶段性费率。"
+      ]
     },
     {
-      "id": "hubei", "name": "湖北省", "short": "湖北", "region": "华中",
-      "base": {"pension": [4552, 22761], "medical": [4552, 22761], "unemp": [4552, 22761], "injury": [4552, 22761], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2400, "hi": 22761, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "hubei",
+      "name": "湖北省",
+      "short": "湖北",
+      "region": "华中",
+      "base": {
+        "pension": [
+          4552,
+          22761
+        ],
+        "medical": [
+          4552,
+          22761
+        ],
+        "unemp": [
+          4552,
+          22761
+        ],
+        "injury": [
+          4552,
+          22761
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2400,
+        "hi": 22761,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2400,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "http://rst.hubei.gov.cn/zfxxgk/zc/qtzdgkwj/202610/t20261008_6027858.shtml",
         "base_doc": "鄂人社发〔2026〕29号：2026社保年度全省城镇职工养老、医疗（生育）、失业、工伤缴费基数月标准7587元，上限22761元、下限4552元",
         "pf": "",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.wh.bendibao.com/live/64093.shtm"
       },
-      "notes": ["湖北已不再分档，全省统一上下限。", "公积金上限按省口径月标准7587元×3倍模型估算（武汉市实际平均工资更高）。"]
+      "notes": [
+        "湖北已不再分档，全省统一上下限。",
+        "公积金上限按省口径月标准7587元×3倍模型估算（武汉市实际平均工资更高）。",
+        "武汉：单位缴纳比例 8%，个人 2%＋大病 7 元/月。"
+      ]
     },
     {
-      "id": "hunan", "name": "湖南省", "short": "湖南", "region": "华中",
-      "base": {"pension": [4106, 20529], "medical": [4106, 20529], "unemp": [4106, 20529], "injury": [4106, 20529], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2100, "hi": 20529, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "hunan",
+      "name": "湖南省",
+      "short": "湖南",
+      "region": "华中",
+      "base": {
+        "pension": [
+          4106,
+          20529
+        ],
+        "medical": [
+          4106,
+          20529
+        ],
+        "unemp": [
+          4106,
+          20529
+        ],
+        "injury": [
+          4106,
+          20529
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.087,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2100,
+        "hi": 20529,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2100,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "medium"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "medium",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "湖南2026年职工基本养老保险、工伤保险、失业保险缴费基数上限20529元/月、下限4106元/月",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "http://www.kaifu.gov.cn/zfxxgk/fdzdgknr/dtyw_qzf/bmdt/202609/t20260909_12546519.html"
       },
-      "notes": ["湖南医保基数由省级另行规定，本表暂按养老同一基数测算。", "最低工资标准与其后各省数值为最近一期公开数据，建议以人社部最新表为准。"]
+      "notes": [
+        "湖南医保基数由省级另行规定，本表暂按养老同一基数测算。",
+        "最低工资标准与其后各省数值为最近一期公开数据，建议以人社部最新表为准。",
+        "湖南省医保局：单位按职工工资总额 8.7% 缴纳（职工医保 8%＋生育保险 0.7%），个人 2%；2026年10月1日起执行。原表按8%测算，已上调。"
+      ]
     },
     {
-      "id": "guangdong", "name": "广东省（广州口径）", "short": "广东", "region": "华南",
-      "base": {"pension": [5521, 27603], "medical": [6234, 31170], "unemp": [5521, 27603], "injury": [5521, 27603], "maternity_merged": true},
-      "rates": {"pension_u": 0.15, "pension_i": 0.08, "medical_u": 0.0685, "medical_i": 0.02, "unemp_u": 0.008, "unemp_i": 0.002, "injury_u": 0.002},
-      "pf": {"lo": 2500, "hi": 41697, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "guangdong",
+      "name": "广东省（广州口径）",
+      "short": "广东",
+      "region": "华南",
+      "base": {
+        "pension": [
+          5521,
+          27603
+        ],
+        "medical": [
+          6234,
+          31170
+        ],
+        "unemp": [
+          5521,
+          27603
+        ],
+        "injury": [
+          5521,
+          27603
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.15,
+        "pension_i": 0.08,
+        "medical_u": 0.0685,
+        "medical_i": 0.02,
+        "unemp_u": 0.008,
+        "unemp_i": 0.002,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2500,
+        "hi": 41697,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2500,
-      "conf": {"base": "high", "rates": "medium", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "pension": "low",
+        "unemp": "medium",
+        "injury": "low",
+        "medical": "high"
+      },
       "src": {
         "base": "https://hrss.gd.gov.cn/zwgk/gsgg/content/post_4957552.html",
         "base_doc": "粤人社发〔2026〕24号：2026年1月1日起全省企业养老缴费基数下限5510元；7月1日起上限27603元、下限5521元，不再划分片区",
         "pf": "https://gjj.gz.gov.cn/gg/tzgg/content/post_10879601.html",
-        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html"
+        "min_wage": "http://114.255.111.133/SYrlzyhshbzb/laodongguanxi_/fwyd/202601/t20260112_565296.html",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "medical": "https://chinastar1.com/?show=3507",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["医保采用广州市2026年度口径（基数下限6234元、上限31170元，单位费率6.85%含生育0.85%），与全省养老基数不同。", "广东单位养老费率按15%测算，建议以粤人社最新文件复核。", "深圳、珠海、东莞等市医保费率与基数差异显著，本表不代表全省。"]
+      "notes": [
+        "医保采用广州市2026年度口径（基数下限6234元、上限31170元，单位费率6.85%含生育0.85%），与全省养老基数不同。",
+        "广东单位养老费率按15%测算，建议以粤人社最新文件复核。",
+        "深圳、珠海、东莞等市医保费率与基数差异显著，本表不代表全省。",
+        "广东医保采用广州市2026年度口径：单位6.85%（含生育0.85%）、个人2%，自2026年1月1日起由阶段性4.5%恢复。失业保险单位0.8%、个人0.2%。养老保险单位费率按15%测算（低于全国16%），建议以粤人社最新文件复核。",
+        "广州市2026年度：单位 6.85%（含生育 0.85%）、个人 2%，自2026年1月1日起由阶段性 4.5% 恢复。"
+      ]
     },
     {
-      "id": "guangxi", "name": "广西壮族自治区", "short": "广西", "region": "华南",
-      "base": {"pension": [4204.8, 21024], "medical": [4204.8, 21024], "unemp": [4204.8, 21024], "injury": [4204.8, 21024], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 1990, "hi": 21024, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "guangxi",
+      "name": "广西壮族自治区",
+      "short": "广西",
+      "region": "华南",
+      "base": {
+        "pension": [
+          4204.8,
+          21024
+        ],
+        "medical": [
+          4204.8,
+          21024
+        ],
+        "unemp": [
+          4204.8,
+          21024
+        ],
+        "injury": [
+          4204.8,
+          21024
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.065,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 1990,
+        "hi": 21024,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 1990,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "medium"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "medium",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "http://rst.gxzf.gov.cn/zwgk/xxgkzcfg/fgfxlm/t28152939.shtml",
         "base_doc": "桂人社发〔2026〕32号：2026年养老、医疗、失业按7008元/月核定，上限21024元/月、下限4204.8元/月",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["原通知未单列工伤保险基数，本表按同一基数测算。"]
+      "notes": [
+        "原通知未单列工伤保险基数，本表按同一基数测算。",
+        "未取到广西2026年医保单位费率官方原文（玉林等地为 6%），按 6.5% 测算。"
+      ]
     },
     {
-      "id": "hainan", "name": "海南省", "short": "海南", "region": "华南",
-      "base": {"pension": [4912.8, 24564], "medical": [4912.8, 24564], "unemp": [4912.8, 24564], "injury": [4912.8, 24564], "maternity_merged": true},
-      "rates": {"pension_u": 0.14, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2010, "hi": 29190.42, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "hainan",
+      "name": "海南省",
+      "short": "海南",
+      "region": "华南",
+      "base": {
+        "pension": [
+          4912.8,
+          24564
+        ],
+        "medical": [
+          4912.8,
+          24564
+        ],
+        "unemp": [
+          4912.8,
+          24564
+        ],
+        "injury": [
+          4912.8,
+          24564
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.14,
+        "pension_i": 0.08,
+        "medical_u": 0.065,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.001
+      },
+      "pf": {
+        "lo": 2010,
+        "hi": 29190.42,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2010,
-      "conf": {"base": "medium", "rates": "medium", "pf": "high", "min_wage": "medium"},
+      "conf": {
+        "base": "medium",
+        "pf": "high",
+        "min_wage": "medium",
+        "pension": "medium",
+        "unemp": "high",
+        "injury": "low",
+        "medical": "medium"
+      },
       "src": {
         "base": "https://m.66zhonglv.com/toutiao/19567.html",
         "base_doc": "海南2025年10月1日至2026年12月31日执行期：全口径月平均工资8188元，五险统一基数下限4912.8元、上限24564元；养老单位14%",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "medical": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "unemp": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "injury": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html"
       },
-      "notes": ["海南企业养老单位费率为14%，明显低于全国16%的普遍水平，是本表重要差异点。", "该组数据来自政策汇编站点，建议以海南省人社厅原文复核。", "公积金采用海口口径（2025.7-2026.6）。"]
+      "notes": [
+        "海南企业养老单位费率为14%，明显低于全国16%的普遍水平，是本表重要差异点。",
+        "该组数据来自政策汇编站点，建议以海南省人社厅原文复核。",
+        "公积金采用海口口径（2025.7-2026.6）。",
+        "海南企业养老单位费率14%（低于全国16%）。医保单位费率6%（不含生育，政策至2026年12月31日）＋生育保险后约6.5%。工伤保险按降费政策在现行费率基础上下调50%（一类约0.1%），原执行至2025年底，2026年是否延续未核实。",
+        "海南阶段性降费至2026年12月31日：单位医保 6%（不含生育）＋生育保险约 0.5%，合并 6.5%。"
+      ]
     },
     {
-      "id": "chongqing", "name": "重庆市", "short": "重庆", "region": "西南",
-      "base": {"pension": [4553, 22765], "medical": [4553, 22765], "unemp": [4553, 22765], "injury": [4553, 22765], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.085, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2100, "hi": 22765, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "chongqing",
+      "name": "重庆市",
+      "short": "重庆",
+      "region": "西南",
+      "base": {
+        "pension": [
+          4553,
+          22765
+        ],
+        "medical": [
+          4553,
+          22765
+        ],
+        "unemp": [
+          4553,
+          22765
+        ],
+        "injury": [
+          4553,
+          22765
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.085,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2100,
+        "hi": 22765,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2100,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "low",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://www.ft22.com/gssj/sheping/202609/13869.html",
         "base_doc": "渝人社规〔2026〕18号：2026年度养老、失业、工伤、医疗（含生育）缴费基数上限22765元、下限4553元",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "http://www.cqwx.gov.cn/bm/xybj/zwgk_68174/zfxxgkml/ybzchb/cbp/202601/t20260112_15307861.html"
       },
-      "notes": ["最低工资标准未核实到2026年最新值，暂用最近一期数据。"]
+      "notes": [
+        "最低工资标准未核实到2026年最新值，暂用最近一期数据。",
+        "重庆：基本医保单位按缴费基数的 8.5% 缴纳（含生育保险 0.5%），个人 2%；另有单位大额医保 1.5%（本表未计入）。"
+      ]
     },
     {
-      "id": "sichuan", "name": "四川省", "short": "四川", "region": "西南",
-      "base": {"pension": [4699, 23493], "medical": [4699, 23493], "unemp": [4699, 23493], "injury": [4699, 23493], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.069, "medical_i": 0.02, "unemp_u": 0.006, "unemp_i": 0.004, "injury_u": 0.002},
-      "pf": {"lo": 2330, "hi": 32969, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "sichuan",
+      "name": "四川省",
+      "short": "四川",
+      "region": "西南",
+      "base": {
+        "pension": [
+          4699,
+          23493
+        ],
+        "medical": [
+          4699,
+          23493
+        ],
+        "unemp": [
+          4699,
+          23493
+        ],
+        "injury": [
+          4699,
+          23493
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.0755,
+        "medical_i": 0.02,
+        "unemp_u": 0.006,
+        "unemp_i": 0.004,
+        "injury_u": 0.0024
+      },
+      "pf": {
+        "lo": 2330,
+        "hi": 32969,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2330,
-      "conf": {"base": "high", "rates": "model", "pf": "high", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "high",
+        "min_wage": "high",
+        "pension": "high",
+        "unemp": "high",
+        "injury": "high",
+        "medical": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "四川2026年度养老、失业、工伤缴费基数上限23493元/月、下限4699元/月",
         "pf": "https://m.163.com/dy/article/L36NBDD305199NPP.html",
-        "min_wage": "https://jaxrm.cn/cms/a/29807082/content"
+        "min_wage": "https://jaxrm.cn/cms/a/29807082/content",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://www.163.com/dy/article/KCCNFNAK05568W0A.html",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8258",
+        "medical": "https://m.sohu.com/a/1077887610_498271/"
       },
-      "notes": ["四川各市医保基数差异明显（如眉山4588元、遂宁5735元），本表按省口径测算。", "公积金采用成都市口径（上限32969元）。", "最低工资第一档2330元/月、第二档2200元/月。"]
+      "notes": [
+        "四川各市医保基数差异明显（如眉山4588元、遂宁5735元），本表按省口径测算。",
+        "公积金采用成都市口径（上限32969元）。",
+        "最低工资第一档2330元/月、第二档2200元/月。",
+        "四川失业单位0.6%、个人0.4%（官方转述）。工伤自2026年7月1日起一类行业基准费率0.24%（即按全国基准下调20%）。",
+        "成都：基本医疗保险单位 6.75%＋生育保险单位 0.8%＝7.55%，个人 2%；另有单位大病医疗互助补充保险 0.75%（本表未计入）。原表按6.9%测算。"
+      ]
     },
     {
-      "id": "guizhou", "name": "贵州省", "short": "贵州", "region": "西南",
-      "base": {"pension": [4117, 20586], "medical": [4117, 20586], "unemp": [4117, 20586], "injury": [4117, 20586], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.085, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2130, "hi": 25392, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "guizhou",
+      "name": "贵州省",
+      "short": "贵州",
+      "region": "西南",
+      "base": {
+        "pension": [
+          4117,
+          20586
+        ],
+        "medical": [
+          4117,
+          20586
+        ],
+        "unemp": [
+          4117,
+          20586
+        ],
+        "injury": [
+          4117,
+          20586
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2130,
+        "hi": 25392,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2130,
-      "conf": {"base": "medium", "rates": "medium", "pf": "high", "min_wage": "medium"},
+      "conf": {
+        "base": "medium",
+        "pf": "high",
+        "min_wage": "medium",
+        "medical": "high",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://m.66zhonglv.com/toutiao/19607.html",
         "base_doc": "贵州2026年7月—2027年6月执行期：全口径月平均工资7377元，养老与医保统一基数下限4117元、上限20586元",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://ybj.guiyang.gov.cn/hdjl/zmhdcjwtzsk/zgylbx/cbjf/202605/t20260520_90192132.html"
       },
-      "notes": ["该组数据来自政策汇编站点（汇总口径），建议以贵州省人社厅原文复核。", "公积金采用贵阳口径（上限25392元暂定、下限2130元）。"]
+      "notes": [
+        "该组数据来自政策汇编站点（汇总口径），建议以贵州省人社厅原文复核。",
+        "公积金采用贵阳口径（上限25392元暂定、下限2130元）。",
+        "贵阳市医保局：单位缴纳 8%、个人 2%。原表按8.5%测算，已下调。"
+      ]
     },
     {
-      "id": "yunnan", "name": "云南省", "short": "云南", "region": "西南",
-      "base": {"pension": [4403, 22017], "medical": [4403, 22017], "unemp": [4403, 22017], "injury": [4403, 22017], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2170, "hi": 32470, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "yunnan",
+      "name": "云南省",
+      "short": "云南",
+      "region": "西南",
+      "base": {
+        "pension": [
+          4403,
+          22017
+        ],
+        "medical": [
+          4403,
+          22017
+        ],
+        "unemp": [
+          4403,
+          22017
+        ],
+        "injury": [
+          4403,
+          22017
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.099,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2170,
+        "hi": 32470,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2170,
-      "conf": {"base": "high", "rates": "model", "pf": "medium", "min_wage": "medium"},
+      "conf": {
+        "base": "high",
+        "pf": "medium",
+        "min_wage": "medium",
+        "medical": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://hrss.yn.gov.cn/NewsView.aspx?pid=0&nid=65761&cid=552&isZt=7",
         "base_doc": "云南省人社厅等四部门：2026年度养老、失业、工伤、医疗（含生育）缴费基数上限22017元/月、下限4403元/月（医保自2026年9月1日起执行）",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.km.bendibao.com/mip/45799.shtm"
       },
-      "notes": ["公积金采用昆明口径（2025年度上限32470元、一类区下限2170元）。"]
+      "notes": [
+        "公积金采用昆明口径（2025年度上限32470元、一类区下限2170元）。",
+        "昆明：医疗保险单位费率 9.9%、个人 2%（生育保险单位 0.5% 另列）。该数值偏高，可能包含大额医疗补助，建议以云南省医保局原文复核。"
+      ]
     },
     {
-      "id": "xizang", "name": "西藏自治区", "short": "西藏", "region": "西南",
-      "base": {"pension": [7172.4, 35862], "medical": [7172.4, 35862], "unemp": [7172.4, 35862], "injury": [7172.4, 35862], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 2100, "hi": 35862, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "xizang",
+      "name": "西藏自治区",
+      "short": "西藏",
+      "region": "西南",
+      "base": {
+        "pension": [
+          7172.4,
+          35862
+        ],
+        "medical": [
+          7172.4,
+          35862
+        ],
+        "unemp": [
+          7172.4,
+          35862
+        ],
+        "injury": [
+          7172.4,
+          35862
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2100,
+        "hi": 35862,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2100,
-      "conf": {"base": "medium", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "medium",
+        "pf": "low",
+        "min_wage": "low",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "西藏2026年月缴费基数上限35862元、下限7172.4元",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["西藏基数水平位居全国第二（仅次于上海、北京），主要受高原补贴与社平工资口径影响。"]
+      "notes": [
+        "西藏基数水平位居全国第二（仅次于上海、北京），主要受高原补贴与社平工资口径影响。",
+        "未取到西藏2026年医保单位费率官方原文，按公开常见口径 8% 测算。"
+      ]
     },
     {
-      "id": "shaanxi", "name": "陕西省", "short": "陕西", "region": "西北",
-      "base": {"pension": [4737, 23685], "medical": [4737, 23685], "unemp": [4737, 23685], "injury": [4737, 23685], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.07, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2250, "hi": 23685, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "shaanxi",
+      "name": "陕西省",
+      "short": "陕西",
+      "region": "西北",
+      "base": {
+        "pension": [
+          4737,
+          23685
+        ],
+        "medical": [
+          4737,
+          23685
+        ],
+        "unemp": [
+          4737,
+          23685
+        ],
+        "injury": [
+          4737,
+          23685
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.06,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2250,
+        "hi": 23685,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2250,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium",
+        "medical": "low"
+      },
       "src": {
         "base": "http://xasjj.xa.gov.cn/zmhd/hygq/2098244330577846274.html",
         "base_doc": "西安市人社局（2026-09-04）：陕西省2026年度养老、失业、工伤个人缴费基数上限23685元/月、下限4737元/月",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8101",
+        "medical": "https://xdz.xa.gov.cn/zwgk/jbmsbz/shbz/1995686261241171969.html"
       },
-      "notes": ["陕西各市医保基数差异较大（宝鸡4694.75元、渭南3720元），本表按省口径测算。"]
+      "notes": [
+        "陕西各市医保基数差异较大（宝鸡4694.75元、渭南3720元），本表按省口径测算。",
+        "陕西延续阶段性降低工伤保险费率，但明确一类行业费率不下调，故一类为0.2%。",
+        "西安市医保局：用人单位职工医保单位缴费率由 7%（不含生育）阶段性下调至 6%，个人 2%，自2025年12月1日起执行12个月。原表按7%测算。"
+      ]
     },
     {
-      "id": "gansu", "name": "甘肃省", "short": "甘肃", "region": "西北",
-      "base": {"pension": [4526, 22626], "medical": [4403, 22014], "unemp": [4526, 22626], "injury": [4526, 22626], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.065, "medical_i": 0.02, "unemp_u": 0.007, "unemp_i": 0.003, "injury_u": 0.002},
-      "pf": {"lo": 2200, "hi": 22626, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "gansu",
+      "name": "甘肃省",
+      "short": "甘肃",
+      "region": "西北",
+      "base": {
+        "pension": [
+          4526,
+          22626
+        ],
+        "medical": [
+          4403,
+          22014
+        ],
+        "unemp": [
+          4526,
+          22626
+        ],
+        "injury": [
+          4526,
+          22626
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.09,
+        "medical_i": 0.02,
+        "unemp_u": 0.007,
+        "unemp_i": 0.003,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 2200,
+        "hi": 22626,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 2200,
-      "conf": {"base": "high", "rates": "model", "pf": "medium", "min_wage": "high"},
+      "conf": {
+        "base": "high",
+        "pf": "medium",
+        "min_wage": "high",
+        "medical": "medium",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://zwfw.gansu.gov.cn/kongtong/zczx/zxfb/art/2026/art_9b8254119347400c81f3f57e5ff18227.html",
         "base_doc": "甘肃2026年度养老、失业、工伤个人月缴费基数上限22626元、下限4526元；职工医保基数上限22014元、下限4403元",
         "pf": "https://g0-cache.51shebao.com/article/detail/8236",
-        "min_wage": "https://g0-cache.51shebao.com/article/detail/8236"
+        "min_wage": "https://g0-cache.51shebao.com/article/detail/8236",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.lz.bendibao.com/live/37883.shtm"
       },
-      "notes": ["医保与养老基数不同，已分别设置。", "公积金下限2200元已随最低工资标准上调。"]
+      "notes": [
+        "医保与养老基数不同，已分别设置。",
+        "公积金下限2200元已随最低工资标准上调。",
+        "兰州（甘肃省医保局口径）：企业单位 9%、个人 2%（行政机关事业单位 8.35%）。原表按6.5%测算，已上调，差异较大。"
+      ]
     },
     {
-      "id": "qinghai", "name": "青海省", "short": "青海", "region": "西北",
-      "base": {"pension": [5333, 26664], "medical": [5333, 26664], "unemp": [5333, 26664], "injury": [5333, 26664], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 1880, "hi": 26664, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "qinghai",
+      "name": "青海省",
+      "short": "青海",
+      "region": "西北",
+      "base": {
+        "pension": [
+          5333,
+          26664
+        ],
+        "medical": [
+          5333,
+          26664
+        ],
+        "unemp": [
+          5333,
+          26664
+        ],
+        "injury": [
+          5333,
+          26664
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.0016
+      },
+      "pf": {
+        "lo": 1880,
+        "hi": 26664,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 1880,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "low",
+        "medical": "model"
+      },
       "src": {
         "base": "http://qinghai.chinatax.gov.cn/web/zxtz/202609/cd4f979559a24cb3a577fe9b1bfefc6c.shtml",
         "base_doc": "青人社厅发〔2026〕54号：以2025年全口径月平均工资8888元确定，缴费基数下限5333元、上限26664元",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "http://g0-cache.51shebao.com/article/detail/8101"
       },
-      "notes": ["青海基数下限5333元位居全国前列，对3000-5000元工资档位的实际负担影响显著。"]
+      "notes": [
+        "青海基数下限5333元位居全国前列，对3000-5000元工资档位的实际负担影响显著。",
+        "青海2025年阶段性降低工伤保险费率：按行业基准费率下调20%（一类0.2%→0.16%），原执行至2025年12月31日，2026年是否延续未核实。",
+        "未取到青海省2026年医保单位费率官方原文，按公开常见口径 8% 测算。"
+      ]
     },
     {
-      "id": "ningxia", "name": "宁夏回族自治区", "short": "宁夏", "region": "西北",
-      "base": {"pension": [5023, 25113], "medical": [5023, 25113], "unemp": [5023, 25113], "injury": [5023, 25113], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 1950, "hi": 25113, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "ningxia",
+      "name": "宁夏回族自治区",
+      "short": "宁夏",
+      "region": "西北",
+      "base": {
+        "pension": [
+          5023,
+          25113
+        ],
+        "medical": [
+          5023,
+          25113
+        ],
+        "unemp": [
+          5023,
+          25113
+        ],
+        "injury": [
+          5023,
+          25113
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.08,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 1950,
+        "hi": 25113,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 1950,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "low",
+        "medical": "model",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "http://si.nx.gov.cn/xxgkai/xxgk/zcfg_1/202608/t20260828_5326123.html",
         "base_doc": "宁人社发〔2026〕152号：2026年城镇职工社会保险缴费基数（含长期护理保险）8371元/月，下限5023元、上限25113元",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html"
       },
-      "notes": ["宁夏缴费基数包含长期护理保险，五险统一按一套上下限执行。"]
+      "notes": [
+        "宁夏缴费基数包含长期护理保险，五险统一按一套上下限执行。",
+        "未取到宁夏2026年医保单位费率官方原文，按公开常见口径 8% 测算。"
+      ]
     },
     {
-      "id": "xinjiang", "name": "新疆维吾尔自治区", "short": "新疆", "region": "西北",
-      "base": {"pension": [5246, 26231], "medical": [5246, 26231], "unemp": [5246, 26231], "injury": [5246, 26231], "maternity_merged": true},
-      "rates": {"pension_u": 0.16, "pension_i": 0.08, "medical_u": 0.08, "medical_i": 0.02, "unemp_u": 0.005, "unemp_i": 0.005, "injury_u": 0.002},
-      "pf": {"lo": 1900, "hi": 26231, "u": 0.07, "i": 0.07, "ratio_range": [0.05, 0.12]},
+      "id": "xinjiang",
+      "name": "新疆维吾尔自治区",
+      "short": "新疆",
+      "region": "西北",
+      "base": {
+        "pension": [
+          5246,
+          26231
+        ],
+        "medical": [
+          5246,
+          26231
+        ],
+        "unemp": [
+          5246,
+          26231
+        ],
+        "injury": [
+          5246,
+          26231
+        ],
+        "maternity_merged": true
+      },
+      "rates": {
+        "pension_u": 0.16,
+        "pension_i": 0.08,
+        "medical_u": 0.072,
+        "medical_i": 0.02,
+        "unemp_u": 0.005,
+        "unemp_i": 0.005,
+        "injury_u": 0.002
+      },
+      "pf": {
+        "lo": 1900,
+        "hi": 26231,
+        "u": 0.07,
+        "i": 0.07,
+        "ratio_range": [
+          0.05,
+          0.12
+        ]
+      },
       "min_wage": 1900,
-      "conf": {"base": "high", "rates": "model", "pf": "low", "min_wage": "low"},
+      "conf": {
+        "base": "high",
+        "pf": "low",
+        "min_wage": "low",
+        "medical": "low",
+        "pension": "high",
+        "unemp": "medium",
+        "injury": "medium"
+      },
       "src": {
         "base": "https://rst.xinjiang.gov.cn/xjrst/c112734/202609/234e01d8b8b9404ca3c98c2cee384903.shtml",
         "base_doc": "新疆人社厅：2025年全口径月平均工资8744元，2026年养老个人缴费基数下限5246元、上限26231元",
         "pf": "",
-        "min_wage": ""
+        "min_wage": "",
+        "pension": "https://www.gz.gov.cn/ysgz/tzzc/gjzc/content/post_5618402.html",
+        "unemp": "https://law.esnai.cn/do.aspx?controller=home&action=show&lawid=219820",
+        "injury": "https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_58707.html",
+        "medical": "https://m.shebao.southmoney.com/banli/shebaozhishi/202606/2426701.html"
       },
-      "notes": ["该通知仅明确养老保险基数，医疗、失业、工伤本表暂按同一基数测算。"]
+      "notes": [
+        "该通知仅明确养老保险基数，医疗、失业、工伤本表暂按同一基数测算。",
+        "乌鲁木齐：医疗保险单位 6.5%＋生育保险单位 0.7%＝7.2%，个人 2%。数据来自社保信息聚合站点，建议以新疆医保局原文复核。"
+      ]
     }
   ]
 }
