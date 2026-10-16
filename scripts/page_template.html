@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公司花的钱去哪儿了 · 全国31省工资税费与最终消费能力透视</title>
+<style>
+:root{
+  --bg:#f5f7fa; --panel:#ffffff; --ink:#1b2430; --ink2:#5a6b7d; --ink3:#8b9aab;
+  --line:#e4e9f0; --line2:#eef2f7;
+  --green:#2e9e6b; --green-l:#e6f5ee;
+  --amber:#e0a02c; --amber-l:#fdf3e2;
+  --red:#d9534f; --red-l:#fdeeed;
+  --blue:#3f76b8; --blue-l:#eaf1f9;
+  --purple:#7a6ad0; --purple-l:#efedfb;
+  --teal:#4f9db3; --teal-l:#e9f4f7;
+  --violet:#a08cc9; --violet-l:#f3f0fa;
+  --shadow:0 1px 2px rgba(16,32,54,.05),0 8px 24px rgba(16,32,54,.06);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC","Noto Sans CJK SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px 80px}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:.2px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* ---------- 头部 ---------- */
+header.hero{
+  background:linear-gradient(140deg,#16233a 0%,#22375c 55%,#1d4a55 100%);
+  color:#fff;padding:44px 0 34px;margin-bottom:26px;
+}
+header.hero .wrap{padding-bottom:0}
+.kicker{font-size:13px;letter-spacing:3px;color:#8fb7d8;text-transform:uppercase;margin-bottom:10px}
+header.hero h1{font-size:31px;line-height:1.35;margin-bottom:12px}
+header.hero p.sub{color:#c3d3e4;font-size:15px;max-width:960px;margin:0 0 22px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 18px;min-width:168px}
+.hstat .v{font-size:23px;font-weight:700;line-height:1.2}
+.hstat .k{font-size:12.5px;color:#a9c2da;margin-top:3px}
+
+/* ---------- 通用卡片 ---------- */
+section{margin-bottom:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px}
+.card h2{font-size:19px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.card h2 .idx{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:#1d2b45;color:#fff;font-size:13px;font-weight:700;flex:none}
+.card .hint{color:var(--ink2);font-size:13.5px;margin:6px 0 16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+.muted{color:var(--ink2)}
+.small{font-size:13px}
+.tiny{font-size:12px;color:var(--ink3)}
+
+/* ---------- 控制区 ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.ctl{display:flex;flex-direction:column;gap:7px}
+.ctl label{font-size:12.5px;color:var(--ink2);font-weight:600;letter-spacing:.5px}
+select,input[type=range]{font-family:inherit}
+select{padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:14px;color:var(--ink);min-width:190px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;max-width:760px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 11px;font-size:13px;cursor:pointer;color:var(--ink2);transition:.14s;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:#b9c8da;color:var(--ink)}
+.chip.on{background:#1d2b45;border-color:#1d2b45;color:#fff;font-weight:600}
+
+/* ---------- 核心指标 ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:4px 0 18px}
+.kpi{border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:#fbfcfe}
+.kpi .k{font-size:12.5px;color:var(--ink2)}
+.kpi .v{font-size:20px;font-weight:700;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--ink3);margin-top:2px}
+.kpi.hl{background:var(--green-l);border-color:#bfe3d2}
+.kpi.warn{background:var(--amber-l);border-color:#f3ddb4}
+.big-ratio{font-size:15px;color:var(--ink2)}
+.big-ratio b{font-size:26px;color:var(--green)}
+
+/* ---------- 堆叠条 ---------- */
+.stack{display:flex;width:100%;height:44px;border-radius:9px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.stack .seg{position:relative;transition:.18s;cursor:default}
+.stack .seg:hover{filter:brightness(1.06)}
+.stack .seg span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:#fff;font-weight:600;overflow:hidden;white-space:nowrap;text-shadow:0 1px 1px rgba(0,0,0,.18)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px}
+.legend .item{display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer}
+.legend .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.legend .item:hover{text-decoration:underline}
+.legend b{font-variant-numeric:tabular-nums}
+
+/* ---------- 表格 ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 11px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line2)}
+th{background:#f7f9fc;color:var(--ink2);font-weight:600;font-size:12.5px;position:sticky;top:0;z-index:2}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#fff;z-index:1}
+th:first-child{background:#f7f9fc;z-index:3}
+tbody tr:hover td{background:#f9fbfd}
+tbody tr:hover td:first-child{background:#f9fbfd}
+tbody tr.sel td{background:#eef6ff}
+tbody tr.sel td:first-child{background:#eef6ff;font-weight:700}
+td.pos{color:var(--green);font-weight:600}
+td.neg{color:var(--red)}
+
+/* ---------- 图例 / 图表 ---------- */
+.chartbox{width:100%;overflow-x:auto}
+svg{display:block;max-width:100%}
+.axis text{font-size:11px;fill:var(--ink3)}
+.axis line{stroke:var(--line)}
+.gridline{stroke:var(--line2);stroke-dasharray:3 3}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:10px;font-size:13px}
+.chart-legend .item{display:flex;align-items:center;gap:7px;cursor:pointer}
+.chart-legend .item.off{opacity:.35}
+.chart-legend .dash{width:14px;height:3px;border-radius:2px}
+
+/* ---------- 热力图 ---------- */
+.heat-wrap{overflow-x:auto}
+.heat{border-collapse:separate;border-spacing:2px;font-size:11px}
+.heat th{background:transparent;position:static;color:var(--ink2);font-size:11px;padding:2px 4px;font-weight:600}
+.heat td{width:52px;height:30px;border-radius:5px;text-align:center;color:#fff;font-weight:600;cursor:pointer;border:none;font-variant-numeric:tabular-nums}
+.heat td.rowhead{width:auto;background:transparent;color:var(--ink);text-align:right;font-weight:600;cursor:pointer;padding-right:8px;white-space:nowrap}
+.heat td.rowhead:hover{color:var(--blue)}
+.heat td.on{outline:2px solid #1d2b45;outline-offset:1px}
+.heat td.dim{opacity:.35}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-top:10px}
+.scale .bar{width:200px;height:11px;border-radius:6px;background:linear-gradient(90deg,#c94b3f,#e0a02c,#8ab861,#2e9e6b)}
+
+/* ---------- 排名条 ---------- */
+.rank{display:flex;flex-direction:column;gap:5px}
+.rank .row{display:grid;grid-template-columns:78px 1fr 62px;align-items:center;gap:10px;font-size:13px;cursor:pointer;border-radius:7px;padding:2px 4px}
+.rank .row:hover{background:#f2f6fb}
+.rank .row.on{background:#eef6ff;font-weight:700}
+.rank .bar{height:16px;border-radius:4px;background:var(--blue);opacity:.85}
+.rank .row.on .bar{background:#1d2b45;opacity:1}
+.rank .val{text-align:right;font-variant-numeric:tabular-nums}
+.rank .nm{color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank .row.on .nm{color:var(--ink)}
+
+/* ---------- 参数 / 来源 ---------- */
+.paramgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.param{ border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:#fbfcfe}
+.param h4{font-size:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.param .lv{font-size:11px;padding:2px 7px;border-radius:20px;font-weight:600;flex:none}
+.lv.high{background:var(--green-l);color:#1d7a51}
+.lv.medium{background:var(--amber-l);color:#96631a}
+.lv.low{background:var(--red-l);color:#a33b38}
+.lv.model{background:#eef1f5;color:#5a6b7d}
+.param dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0;font-size:13px}
+.param dt{color:var(--ink2)}
+.param dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.note-list{margin:10px 0 0;padding-left:18px;font-size:13px;color:var(--ink2)}
+.note-list li{margin-bottom:4px}
+details{border:1px solid var(--line);border-radius:11px;padding:12px 15px;background:#fbfcfe;margin-top:12px}
+details summary{cursor:pointer;font-weight:600;font-size:14px}
+details[open] summary{margin-bottom:10px}
+.callout{border-left:4px solid var(--amber);background:var(--amber-l);padding:12px 16px;border-radius:0 10px 10px 0;font-size:13.5px;margin:14px 0}
+.callout.green{border-color:var(--green);background:var(--green-l)}
+.callout.red{border-color:var(--red);background:var(--red-l)}
+.callout.blue{border-color:var(--blue);background:var(--blue-l)}
+.tooltip{position:fixed;pointer-events:none;background:#1b2430;color:#fff;font-size:12px;padding:6px 9px;border-radius:7px;opacity:0;transition:opacity .12s;z-index:99;white-space:nowrap;font-variant-numeric:tabular-nums}
+footer{color:var(--ink3);font-size:12.5px;text-align:center;padding:22px 0 0}
+.flag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;background:var(--amber-l);color:#96631a;margin-left:6px;vertical-align:1px}
+.flag.ok{background:var(--green-l);color:#1d7a51}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink)}
+.btn:hover{background:#f2f6fb}
+.btn.primary{background:#1d2b45;border-color:#1d2b45;color:#fff}
+.btn.primary:hover{background:#16233a}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">工资 · 社保 · 公积金 · 个税 · 消费税</div>
+    <h1>公司为你花的每一块钱，最后变成了什么？</h1>
+    <p class="sub">
+      以《计算方法.txt》的口径，对全国 31 个省级行政区（广东取广州口径）逐个险种设置缴费基数上下限，
+      计算 16 个月薪档位从<strong>公司实际人工成本</strong>到<strong>个人真正消费到的商品与服务价值</strong>的完整拆解。
+      政策基准日：<span id="asof"></span>。所有金额均以人民币计，消费环节间接税统一按含税消费支出的 10% 假设。
+    </p>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= 1 交互 ================= -->
+<section class="card" id="sec-control">
+  <h2><span class="idx">1</span>选择条件</h2>
+  <div class="hint">切换省份与月薪档位，下方所有图表与表格会立即重算。左侧为省份，右侧为税前月薪档位。</div>
+  <div class="controls">
+    <div class="ctl">
+      <label for="prov">省份 / 地区（31 个）</label>
+      <select id="prov"></select>
+    </div>
+    <div class="ctl">
+      <label>税前月薪档位（元/月）</label>
+      <div class="chips" id="salaryChips"></div>
+    </div>
+    <div class="ctl">
+      <label>曲线对比省份（可多选，最多 4 个）</label>
+      <div class="chips" id="cmpChips"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2 核心拆解 ================= -->
+<section class="card" id="sec-breakdown">
+  <h2><span class="idx">2</span>公司成本拆解：把 <span id="bdCost"></span> 元人工成本切成 7 份</h2>
+  <div class="hint" id="bdHint"></div>
+  <div class="stack" id="stack"></div>
+  <div class="legend" id="stackLegend"></div>
+  <div class="grid2" style="margin-top:24px">
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">换成“公司每花 100 元”</h3>
+      <div id="per100"></div>
+    </div>
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">资金流向（桑基图）</h3>
+      <div class="chartbox" id="sankey"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3 曲线 ================= -->
+<section class="card" id="sec-curve">
+  <h2><span class="idx">3</span>核心曲线：最终消费能力占公司成本比例随月薪变化</h2>
+  <div class="hint">横轴为 16 个月薪档位（等距排列，非等比数值轴），纵轴为“最终实际消费价值 ÷ 公司实际人工成本”。点击图例可显隐曲线，点击数据点可切换当前省份与档位。</div>
+  <div class="chartbox" id="curve"></div>
+  <div class="chart-legend" id="curveLegend"></div>
+  <div class="callout blue" id="curveNote"></div>
+</section>
+
+<!-- ================= 4 热力图 ================= -->
+<section class="card" id="sec-heat">
+  <h2><span class="idx">4</span>全国一览热力图：31 省 × 16 档</h2>
+  <div class="hint">每格颜色代表该省该档的“最终消费能力占公司成本比例”，越绿越高、越红越低。点击任意格子即可跳到该组合。表格可横向滚动。</div>
+  <div class="heat-wrap" id="heat"></div>
+  <div class="scale"><span>低</span><div class="bar"></div><span>高</span>
+    <span class="tiny" id="heatRange" style="margin-left:10px"></span>
+    <button class="btn" id="heatSort" style="margin-left:auto">切换排序：按当前档位占比</button>
+  </div>
+  <div class="grid2" style="margin-top:22px">
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">当前档位：省份排名</h3>
+      <div class="rank" id="rank"></div>
+    </div>
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">区域平均（当前档位）</h3>
+      <div class="rank" id="regionRank"></div>
+      <div class="callout green" id="regionNote" style="margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 完整表 ================= -->
+<section class="card" id="sec-table">
+  <h2><span class="idx">5</span>完整计算总表（<span id="tblProv"></span> · 全 16 档）</h2>
+  <div class="hint">金额四舍五入到元；占比按未舍入中间值计算。点击任意行可切换“当前档位”。</div>
+  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+    <button class="btn primary" id="btnCsv">下载该省 CSV</button>
+    <button class="btn" id="btnCsvAll">下载全国 31 省合并 CSV</button>
+    <button class="btn" id="btnCsvNat">下载全国平均表 CSV</button>
+  </div>
+  <div class="tbl-wrap" id="fullTable"></div>
+</section>
+
+<!-- ================= 6 全国平均与构成 ================= -->
+<section class="card" id="sec-national">
+  <h2><span class="idx">6</span>全国 31 省平均：每一档钱都去了哪</h2>
+  <div class="hint">按 31 个省级行政区等权平均（非人口加权）。柱状堆叠展示公司成本中各组成部分的平均金额。</div>
+  <div class="chartbox" id="natChart"></div>
+  <div class="grid2" style="margin-top:20px">
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">各收入段的关键变化</h3>
+      <div id="insights"></div>
+    </div>
+    <div>
+      <h3 style="font-size:15px;margin-bottom:10px">全国平均明细</h3>
+      <div class="tbl-wrap" id="natTable"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7 政策参数与来源 ================= -->
+<section class="card" id="sec-policy">
+  <h2><span class="idx">7</span>参数、来源与不确定性</h2>
+  <div class="hint">
+    本页以当前已生效政策为准。每项参数标注可信度：
+    <span class="lv high">已核实</span> 官方原文核实 ·
+    <span class="lv medium">基本可信</span> 官方转述/转载 ·
+    <span class="lv low">待核实</span> 未取到当年原文 ·
+    <span class="lv model">模型值</span> 统一假设（非某地法定标准）。
+  </div>
+  <div id="policyCards" class="paramgrid"></div>
+  <div class="callout red" style="margin-top:18px">
+    <b>必须明确的边界：</b>“损耗比例”<b>不等于</b>政府税收率——其中包含单位与个人缴存的社保（未来形成个人保障权益）和住房公积金（个人资产）。
+    本页的“估算消费间接税”是按统一 10% 假设得到的<b>模型参数</b>，不代表真实增值税税率，也不是某个人的真实消费税账单。
+  </div>
+  <details>
+    <summary>方法论与全部假设（点开）</summary>
+    <ol class="note-list" id="assumptions"></ol>
+  </details>
+  <details>
+    <summary>数据来源清单（官方链接）</summary>
+    <div id="sources"></div>
+  </details>
+  <details>
+    <summary>局限与不确定性（一定要看）</summary>
+    <ul class="note-list" id="limits"></ul>
+  </details>
+</section>
+
+<footer>
+  本页由《计算方法.txt》口径生成 · 计算引擎：scripts/calc.py · 参数集：data/policy_2026.json ·
+  所有中间计算保留分与角，展示时四舍五入到元，占比保留 1 位小数
+</footer>
+</div>
+
+<div class="tooltip" id="tip"></div>
+
+<script id="payload" type="application/json">/*__DATA__*/</script>
+<script>
+"use strict";
+const PAYLOAD = JSON.parse(document.getElementById('payload').textContent);
+const {provinces, results, national, ranking, province_summary, analysis, meta} = PAYLOAD;
+const SALARIES = meta.salary_levels;
+const ROWS = {}; results.forEach(r=>ROWS[r.id]=r.rows);
+const PROV = {}; provinces.forEach(p=>PROV[p.id]=p);
+
+/* ---------- 颜色 ---------- */
+const C = {
+  final:   {c:'#2e9e6b', n:'最终消费价值（真正买到的商品与服务）'},
+  indirect:{c:'#e0a02c', n:'估算消费环节间接税'},
+  tax:     {c:'#d9534f', n:'个人所得税（月均）'},
+  indSoc:  {c:'#3f76b8', n:'个人社保缴费'},
+  indPf:   {c:'#7a6ad0', n:'个人住房公积金'},
+  uniSoc:  {c:'#4f9db3', n:'单位社保缴费'},
+  uniPf:   {c:'#a08cc9', n:'单位住房公积金'}
+};
+const segsOf = r => ([
+  ['final', r.final_value], ['indirect', r.indirect_tax], ['tax', r.monthly_tax],
+  ['indPf', r.ind_pf], ['indSoc', r.ind_social], ['uniPf', r.unit_pf], ['uniSoc', r.unit_social]
+]);
+
+/* ---------- 工具 ---------- */
+const fmt = (x,d=0)=>Number(x).toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const yuan = x=>'¥'+fmt(x);
+const pct = x=>(x*100).toFixed(1)+'%';
+const tip = document.getElementById('tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;moveTip(e);}
+function moveTip(e){tip.style.left=Math.min(window.innerWidth-tip.offsetWidth-8,e.clientX+14)+'px';tip.style.top=(e.clientY+16)+'px';}
+function hideTip(){tip.style.opacity=0;}
+document.addEventListener('mousemove',e=>{if(tip.style.opacity==='1')moveTip(e);});
+
+/* ---------- 状态 ---------- */
+const state = {prov:'beijing', salary:8000, cmp:['shanghai','hainan','henan'], heatSort:'salary'};
+const row = ()=>ROWS[state.prov][SALARIES.indexOf(state.salary)];
+
+/* ---------- 初始化控件 ---------- */
+const sel = document.getElementById('prov');
+const groups = {};
+provinces.forEach(p=>{(groups[p.region]=groups[p.region]||[]).push(p)});
+Object.keys(groups).forEach(g=>{
+  const og=document.createElement('optgroup'); og.label=g;
+  groups[g].forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;og.appendChild(o);});
+  sel.appendChild(og);
+});
+sel.value=state.prov;
+sel.onchange=()=>{state.prov=sel.value;renderAll();};
+
+const sChips=document.getElementById('salaryChips');
+SALARIES.forEach(s=>{
+  const b=document.createElement('div'); b.className='chip'; b.textContent=fmt(s); b.dataset.s=s;
+  b.onclick=()=>{state.salary=s;renderAll();}; sChips.appendChild(b);
+});
+const cChips=document.getElementById('cmpChips');
+function buildCmpChips(){
+  cChips.innerHTML='';
+  provinces.forEach(p=>{
+    if(p.id===state.prov) return;
+    const b=document.createElement('div');
+    b.className='chip'+(state.cmp.includes(p.id)?' on':''); b.textContent=p.short;
+    b.onclick=()=>{
+      const i=state.cmp.indexOf(p.id);
+      if(i>=0) state.cmp.splice(i,1);
+      else { if(state.cmp.length>=4) state.cmp.shift(); state.cmp.push(p.id); }
+      renderAll();
+    };
+    cChips.appendChild(b);
+  });
+}
+
+/* ---------- 渲染：头部统计 ---------- */
+function renderHero(){
+  const idx=SALARIES.indexOf(state.salary);
+  const n=national[idx];
+  const best=[...provinces].map(p=>({short:p.short,v:ROWS[p.id][idx].ratio})).sort((a,b)=>b.v-a.v);
+  const hi=best[0], lo=best[best.length-1];
+  const avgCash=n.cash;
+  document.getElementById('asof').textContent=meta.as_of;
+  document.getElementById('heroStats').innerHTML=`
+    <div class="hstat"><div class="v">31 省 × 16 档</div><div class="k">共 496 组逐档完整计算</div></div>
+    <div class="hstat"><div class="v">${pct(n.ratio)}</div><div class="k">全国平均：${fmt(state.salary)} 元档最终消费价值占公司成本</div></div>
+    <div class="hstat"><div class="v">${hi.short} ${pct(hi.v)}</div><div class="k">该档最高</div></div>
+    <div class="hstat"><div class="v">${lo.short} ${pct(lo.v)}</div><div class="k">该档最低</div></div>`;
+}
+
+/* ---------- 渲染：堆叠条与 100 元视图 ---------- */
+function renderBreakdown(){
+  const r=row(), p=PROV[state.prov];
+  const segs=segsOf(r);
+  const total=segs.reduce((a,b)=>a+b[1],0);
+  document.getElementById('bdCost').textContent=fmt(r.company_cost);
+  const floorBind=r.salary<p.base.pension[0];
+  const capBind=r.salary>p.base.pension[1];
+  const pfCap=r.salary>p.pf.hi;
+  const lowWage=r.salary<p.min_wage;
+  document.getElementById('bdHint').innerHTML=
+    `${p.name} · 税前月薪 <b>${yuan(r.salary)}</b> → 公司实际人工成本 <b>${yuan(r.company_cost)}</b>（= 税前工资 + 单位社保 ${yuan(r.unit_social)} + 单位公积金 ${yuan(r.unit_pf)}）。`+
+    (floorBind?`<span class="flag">月薪低于当地社保基数下限 ${fmt(p.base.pension[0])} 元，按下限缴费</span>`:'')+
+    (capBind?`<span class="flag ok">月薪高于社保基数上限 ${fmt(p.base.pension[1])} 元，已封顶</span>`:'')+
+    (pfCap?`<span class="flag ok">公积金基数已封顶（上限 ${fmt(p.pf.hi)} 元）</span>`:'')+
+    (lowWage?`<span class="flag">低于当地最低工资标准 ${fmt(p.min_wage)} 元，属数学情景</span>`:'');
+  const stack=document.getElementById('stack'); stack.innerHTML='';
+  segs.forEach(([k,v])=>{
+    const d=document.createElement('div'); d.className='seg';
+    d.style.width=(v/total*100)+'%'; d.style.background=C[k].c;
+    if(v/total>0.055) d.innerHTML=`<span>${pct(v/total)}</span>`;
+    d.onmouseenter=e=>showTip(e,`<b>${C[k].n}</b><br>${yuan(v)} · 占公司成本 ${pct(v/total)}`);
+    d.onmouseleave=hideTip;
+    stack.appendChild(d);
+  });
+  const lg=document.getElementById('stackLegend'); lg.innerHTML='';
+  segs.forEach(([k,v])=>{
+    const d=document.createElement('div'); d.className='item';
+    d.innerHTML=`<span class="sw" style="background:${C[k].c}"></span>${C[k].n} <b>${yuan(v)}</b> <span class="tiny">${pct(v/total)}</span>`;
+    lg.appendChild(d);
+  });
+  // 每 100 元
+  const groupsPer100=[
+    ['到手现金（当月可支配）',r.cash,'#2e9e6b','其中 90% 形成最终消费价值'],
+    ['个人社保',r.ind_social,'#3f76b8','养老 8% + 医疗 2% + 失业'],
+    ['个人住房公积金',r.ind_pf,'#7a6ad0','个人资产'],
+    ['个人所得税（月均）',r.monthly_tax,'#d9534f','全年综合所得口径'],
+    ['单位社保',r.unit_social,'#4f9db3','公司额外支出'],
+    ['单位住房公积金',r.unit_pf,'#a08cc9','公司额外支出，个人资产']
+  ];
+  document.getElementById('per100').innerHTML = groupsPer100.map(([n,v,c,s])=>{
+    const per=v/total*100;
+    return `<div style="margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;font-size:13.5px">
+        <span>${n} <span class="tiny">${s}</span></span><span class="num"><b>${per.toFixed(1)}</b> 元</span></div>
+      <div style="height:8px;background:#eef2f7;border-radius:5px;overflow:hidden;margin-top:3px">
+        <div style="width:${per}%;height:100%;background:${c}"></div></div></div>`;
+  }).join('') + `<div class="callout green" style="margin-top:12px">
+    公司每支出 <b>100 元</b>，最终只有 <b>${(r.final_value/total*100).toFixed(1)} 元</b> 变成这位员工真正消费到的商品与服务；
+    <b>${(r.indirect_tax/total*100).toFixed(1)} 元</b> 是消费环节间接税；
+    <b>${((r.ind_social+r.ind_pf+r.unit_social+r.unit_pf)/total*100).toFixed(1)} 元</b> 进入社保与公积金（属于个人保障权益与个人资产，不是税）；
+    <b>${(r.monthly_tax/total*100).toFixed(1)} 元</b> 是个人所得税。</div>`;
+  renderSankey(r,total);
+}
+
+/* ---------- 桑基图 ---------- */
+function renderSankey(r,total){
+  const W=Math.max(520,document.getElementById('sankey').clientWidth||560), H=360;
+  const cols=[
+    [{k:'cost',n:'公司人工成本',v:total,c:'#1d2b45'}],
+    [{k:'uniSoc',n:'单位社保',v:r.unit_social,c:C.uniSoc.c},{k:'uniPf',n:'单位公积金',v:r.unit_pf,c:C.uniPf.c},{k:'gross',n:'税前工资',v:r.salary,c:'#5a6b7d'}],
+    [{k:'indSoc',n:'个人社保',v:r.ind_social,c:C.indSoc.c},{k:'indPf',n:'个人公积金',v:r.ind_pf,c:C.indPf.c},{k:'tax',n:'个税',v:r.monthly_tax,c:C.tax.c},{k:'cash',n:'到手现金',v:r.cash,c:'#2e9e6b'}],
+    [{k:'indirect',n:'消费间接税',v:r.indirect_tax,c:C.indirect.c},{k:'final',n:'最终消费价值',v:r.final_value,c:C.final.c}]
+  ];
+  const links=[[[0,0],[1,0]],[[0,0],[1,1]],[[0,0],[1,2]],
+               [[1,2],[2,0]],[[1,2],[2,1]],[[1,2],[2,2]],[[1,2],[2,3]],
+               [[2,3],[3,0]],[[2,3],[3,1]]];
+  const colX=[8,W*0.36,W*0.68,W-96];
+  const barW=15, gap=16, top=16, usable=H-top*2;
+  // 布局
+  cols.forEach((col,ci)=>{
+    const sum=col.reduce((a,b)=>a+b.v,0);
+    const avail=usable-gap*(col.length-1);
+    let y=top;
+    col.forEach(node=>{ node.h=Math.max(2.5,avail*node.v/sum); node.y=y; node.cy=y+node.h/2; node.used=0; y+=node.h+gap; });
+  });
+  // 标签防重叠：每列按最小间距 27px 重排标签纵向位置
+  const LABEL_GAP=27;
+  cols.forEach(col=>{
+    const items=col.map(n=>({n,y:n.cy}));
+    items.sort((a,b)=>a.y-b.y);
+    for(let i=1;i<items.length;i++) if(items[i].y-items[i-1].y<LABEL_GAP) items[i].y=items[i-1].y+LABEL_GAP;
+    const maxY=H-14;
+    for(let i=items.length-1;i>=0;i--) if(items[i].y>maxY) items[i].y=maxY-(items.length-1-i)*LABEL_GAP;
+    for(let i=1;i<items.length;i++) if(items[i].y-items[i-1].y<LABEL_GAP) items[i].y=items[i-1].y+LABEL_GAP;
+    items.forEach(it=>{ it.n.labelY=it.y; });
+  });
+  const path=(x1,y1,x2,y2)=>{const mx=(x1+x2)/2;return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;};
+  let svg=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  // 连线
+  links.forEach(([a,b])=>{
+    const s=cols[a[0]][a[1]], t=cols[b[0]][b[1]];
+    const v=Math.min(s.v,t.v);
+    const y1=s.y+s.used, y2=t.y+t.used;
+    const h1=s.h*(v/s.v), h2=t.h*(v/t.v);
+    s.used+=h1; t.used+=h2;
+    svg+=`<path d="${path(colX[a[0]]+barW,y1+h1/2,colX[b[0]],y2+h2/2)}" stroke="${s.c}" stroke-opacity="0.32" stroke-width="${Math.max(1.2,Math.min(h1,h2))}" fill="none"/>`;
+  });
+  // 节点 + 标签
+  cols.forEach((col,ci)=>{
+    col.forEach(node=>{
+      svg+=`<rect x="${colX[ci]}" y="${node.y}" width="${barW}" height="${node.h}" rx="3" fill="${node.c}"/>`;
+      if(node.h<3) svg+=`<line x1="${colX[ci]}" y1="${node.labelY}" x2="${colX[ci]+barW}" y2="${node.labelY}" stroke="${node.c}" stroke-width="2"/>`;
+      const label=`${node.n}`;
+      const val=`${yuan(node.v)} · ${pct(node.v/total)}`;
+      if(ci===3||ci===0){
+        svg+=`<text x="${colX[ci]+barW+8}" y="${node.labelY-2}" font-size="12" fill="#1b2430" font-weight="600">${label}</text>`;
+        svg+=`<text x="${colX[ci]+barW+8}" y="${node.labelY+12}" font-size="11" fill="#5a6b7d">${val}</text>`;
+      }else{
+        svg+=`<text x="${colX[ci]-6}" y="${node.labelY-2}" font-size="12" fill="#1b2430" font-weight="600" text-anchor="end">${label}</text>`;
+        svg+=`<text x="${colX[ci]-6}" y="${node.labelY+12}" font-size="11" fill="#5a6b7d" text-anchor="end">${val}</text>`;
+      }
+    });
+  });
+  svg+='</svg>';
+  document.getElementById('sankey').innerHTML=svg;
+}
+
+/* ---------- 曲线 ---------- */
+const hidden={};
+function renderCurve(){
+  const W=Math.max(680,document.getElementById('curve').clientWidth||900),H=390;
+  const m={t:22,r:26,b:56,l:64};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const series=[];
+  series.push({id:'__nat__',name:'全国31省平均',color:'#1d2b45',dash:'6 4',vals:national.map(n=>n.ratio),width:2.6});
+  const list=[state.prov,...state.cmp];
+  const palette=['#2e9e6b','#d9534f','#e0a02c','#7a6ad0','#3f76b8'];
+  list.forEach((id,i)=>series.push({id,name:PROV[id].short+(id===state.prov?'（当前）':''),color:palette[i%palette.length],vals:ROWS[id].map(r=>r.ratio),width:id===state.prov?2.8:1.9}));
+  const all=series.filter(s=>!hidden[s.id]).flatMap(s=>s.vals);
+  let lo=Math.min(...all),hi=Math.max(...all);
+  lo=Math.max(0,Math.floor((lo-0.03)*20)/20); hi=Math.ceil((hi+0.02)*20)/20;
+  const X=i=>m.l+(iw*(i+0.5))/SALARIES.length;
+  const Y=v=>m.t+ih*(1-(v-lo)/(hi-lo));
+  let svg=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  for(let v=lo;v<=hi+1e-9;v+=0.05){
+    svg+=`<line class="gridline" x1="${m.l}" y1="${Y(v)}" x2="${W-m.r}" y2="${Y(v)}"/>`;
+    svg+=`<text class="axis" x="${m.l-9}" y="${Y(v)+4}" text-anchor="end">${(v*100).toFixed(0)}%</text>`;
+  }
+  SALARIES.forEach((s,i)=>{
+    svg+=`<text class="axis" x="${X(i)}" y="${H-m.b+20}" text-anchor="middle">${s>=10000?(s/10000)+'万':s}</text>`;
+  });
+  svg+=`<text class="axis" x="${W/2}" y="${H-8}" text-anchor="middle" font-size="12">税前月薪（元/月）</text>`;
+  svg+=`<text class="axis" x="14" y="${m.t-6}" font-size="12">最终消费价值 / 公司成本</text>`;
+  const idx=SALARIES.indexOf(state.salary);
+  svg+=`<line x1="${X(idx)}" y1="${m.t}" x2="${X(idx)}" y2="${m.t+ih}" stroke="#c8d4e2" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  series.filter(s=>!hidden[s.id]).forEach(s=>{
+    const d=s.vals.map((v,i)=>`${i?'L':'M'}${X(i)},${Y(v)}`).join(' ');
+    svg+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width}" ${s.dash?`stroke-dasharray="${s.dash}"`:''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    s.vals.forEach((v,i)=>{
+      svg+=`<circle cx="${X(i)}" cy="${Y(v)}" r="${i===idx?5:3.2}" fill="#fff" stroke="${s.color}" stroke-width="${i===idx?2.6:1.8}" style="cursor:pointer"
+        data-p="${s.id}" data-i="${i}"/>`;
+    });
+  });
+  svg+='</svg>';
+  const box=document.getElementById('curve'); box.innerHTML=svg;
+  box.querySelectorAll('circle').forEach(c=>{
+    c.onmouseenter=e=>{const i=+c.dataset.i,p=c.dataset.p;const v=p==='__nat__'?national[i].ratio:ROWS[p][i].ratio;
+      showTip(e,`${p==='__nat__'?'全国平均':PROV[p].name}<br>月薪 ${fmt(SALARIES[i])} 元 → ${pct(v)}`);};
+    c.onmouseleave=hideTip;
+    c.onclick=()=>{const p=c.dataset.p,i=+c.dataset.i;if(p!=='__nat__'){state.prov=p;sel.value=p;}state.salary=SALARIES[i];renderAll();};
+  });
+  const lg=document.getElementById('curveLegend'); lg.innerHTML='';
+  series.forEach(s=>{
+    const d=document.createElement('div'); d.className='item'+(hidden[s.id]?' off':'');
+    d.innerHTML=`<span class="dash" style="background:${s.color}"></span>${s.name}`;
+    d.onclick=()=>{hidden[s.id]=!hidden[s.id];renderCurve();};
+    lg.appendChild(d);
+  });
+  // 曲线说明
+  const cur=row();
+  const natR=national[idx].ratio;
+  const diffs=ROWS[state.prov].map(r=>r.ratio);
+  const peak=diffs.indexOf(Math.max(...diffs)), trough=diffs.indexOf(Math.min(...diffs));
+  document.getElementById('curveNote').innerHTML=
+    `<b>${PROV[state.prov].short}</b>的曲线：最低点在 <b>${fmt(SALARIES[trough])} 元</b>（${pct(diffs[trough])}），
+     最高点在 <b>${fmt(SALARIES[peak])} 元</b>（${pct(diffs[peak])}）。
+     当前 ${fmt(state.salary)} 元档为 <b>${pct(cur.ratio)}</b>，全国平均为 ${pct(natR)}
+     （${cur.ratio>=natR?'高于':'低于'}全国平均 ${(Math.abs(cur.ratio-natR)*100).toFixed(1)} 个百分点）。
+     低收入段曲线向下，是因为社保缴费基数下限把“按工资×费率”变成了“按下限×费率”；
+     中等收入段的小幅回落主要来自个人所得税累进；
+     高收入段回升，是因为社保与公积金基数已封顶，单位缴费不再随工资同步增长。`;
+}
+
+/* ---------- 热力图 ---------- */
+function colorFor(v,lo,hi){
+  const t=Math.max(0,Math.min(1,(v-lo)/(hi-lo||1)));
+  const stops=[[201,75,63],[224,160,44],[138,184,97],[46,158,107]];
+  const x=t*(stops.length-1), i=Math.floor(x), f=x-i;
+  const a=stops[i], b=stops[Math.min(stops.length-1,i+1)];
+  return `rgb(${Math.round(a[0]+(b[0]-a[0])*f)},${Math.round(a[1]+(b[1]-a[1])*f)},${Math.round(a[2]+(b[2]-a[2])*f)})`;
+}
+function renderHeat(){
+  const vals=results.flatMap(r=>r.rows.map(x=>x.ratio));
+  const lo=Math.min(...vals), hi=Math.max(...vals);
+  const ci=SALARIES.indexOf(state.salary);
+  let order=[...provinces];
+  if(state.heatSort==='salary') order.sort((a,b)=>ROWS[b.id][ci].ratio-ROWS[a.id][ci].ratio);
+  let h='<table class="heat"><thead><tr><th></th>';
+  SALARIES.forEach(s=>h+=`<th>${s>=10000?(s/10000)+'万':s}</th>`);
+  h+='</tr></thead><tbody>';
+  order.forEach(p=>{
+    h+=`<tr><td class="rowhead" data-p="${p.id}">${p.short}</td>`;
+    SALARIES.forEach((s,i)=>{
+      const v=ROWS[p.id][i].ratio;
+      h+=`<td data-p="${p.id}" data-i="${i}" class="${p.id===state.prov&&i===ci?'on':''}" style="background:${colorFor(v,lo,hi)}">${(v*100).toFixed(0)}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  const box=document.getElementById('heat'); box.innerHTML=h;
+  box.querySelectorAll('td[data-p]').forEach(td=>{
+    td.onmouseenter=e=>{const pid=td.dataset.p;if(!pid||td.dataset.i===undefined)return;const i=+td.dataset.i;
+      showTip(e,`${PROV[pid].name}<br>月薪 ${fmt(SALARIES[i])} 元 → ${pct(ROWS[pid][i].ratio)}<br>公司成本 ${yuan(ROWS[pid][i].company_cost)} · 最终消费 ${yuan(ROWS[pid][i].final_value)}`);};
+    td.onmouseleave=hideTip;
+    td.onclick=()=>{const pid=td.dataset.p;if(!pid)return;state.prov=pid;sel.value=pid;if(td.dataset.i!==undefined)state.salary=SALARIES[+td.dataset.i];renderAll();};
+  });
+  document.getElementById('heatRange').textContent=`色阶范围 ${(lo*100).toFixed(1)}% ~ ${(hi*100).toFixed(1)}%（全国496组）`;
+  document.getElementById('heatSort').textContent = state.heatSort==='salary'?'切换排序：按行政区顺序':'切换排序：按当前档位占比';
+}
+
+/* ---------- 排名 ---------- */
+function renderRank(){
+  const i=SALARIES.indexOf(state.salary);
+  const arr=[...provinces].map(p=>({id:p.id,short:p.short,name:p.name,v:ROWS[p.id][i].ratio}));
+  arr.sort((a,b)=>b.v-a.v);
+  const lo=arr[arr.length-1].v, hi=arr[0].v;
+  document.getElementById('rank').innerHTML=arr.map(x=>
+    `<div class="row ${x.id===state.prov?'on':''}" data-p="${x.id}">
+      <span class="nm" title="${x.name}">${x.short}</span>
+      <span class="bar" style="width:${20+80*(x.v-lo)/((hi-lo)||1)}%;background:${colorFor(x.v,lo,hi)}"></span>
+      <span class="val">${pct(x.v)}</span></div>`).join('');
+  document.querySelectorAll('#rank .row').forEach(el=>el.onclick=()=>{state.prov=el.dataset.p;sel.value=state.prov;renderAll();});
+  // 区域平均
+  const byR={};
+  arr.forEach(x=>{const g=PROV[x.id].region;(byR[g]=byR[g]||[]).push(x.v)});
+  const rr=Object.entries(byR).map(([k,v])=>({k,v:v.reduce((a,b)=>a+b,0)/v.length,n:v.length})).sort((a,b)=>b.v-a.v);
+  const rlo=rr[rr.length-1].v,rhi=rr[0].v;
+  document.getElementById('regionRank').innerHTML=rr.map(x=>
+    `<div class="row"><span class="nm">${x.k}（${x.n}）</span>
+     <span class="bar" style="width:${20+80*(x.v-rlo)/((rhi-rlo)||1)}%;background:${colorFor(x.v,rlo,rhi)}"></span>
+     <span class="val">${pct(x.v)}</span></div>`).join('');
+  document.getElementById('regionNote').innerHTML=
+    `当前 <b>${fmt(state.salary)}</b> 元档，区域平均最高为 <b>${rr[0].k}</b>（${pct(rr[0].v)}），
+     最低为 <b>${rr[rr.length-1].k}</b>（${pct(rr[rr.length-1].v)}）。
+     区域差异主要来自社保缴费基数下限与医疗、失业费率，而不是个税（个税规则全国统一）。`;
+}
+
+/* ---------- 完整表 ---------- */
+function renderTable(){
+  const p=PROV[state.prov];
+  document.getElementById('tblProv').textContent=p.name;
+  let h='<table><thead><tr><th>税前月薪</th><th>单位社保</th><th>单位公积金</th><th>公司实际成本</th><th>个人社保</th><th>个人公积金</th><th>月均个税</th><th>到手现金</th><th>估算消费间接税</th><th>最终消费价值</th><th>消费价值/公司成本</th><th>损耗比例</th></tr></thead><tbody>';
+  ROWS[state.prov].forEach((r,i)=>{
+    h+=`<tr data-i="${i}" class="${SALARIES[i]===state.salary?'sel':''}">
+      <td>${fmt(SALARIES[i])}${SALARIES[i]<p.min_wage?' <span class="flag">低于最低工资</span>':''}</td>
+      <td>${fmt(r.unit_social)}</td><td>${fmt(r.unit_pf)}</td><td><b>${fmt(r.company_cost)}</b></td>
+      <td>${fmt(r.ind_social)}</td><td>${fmt(r.ind_pf)}</td><td class="neg">${fmt(r.monthly_tax)}</td>
+      <td>${fmt(r.cash)}</td><td>${fmt(r.indirect_tax)}</td>
+      <td class="pos">${fmt(r.final_value)}</td><td class="pos">${pct(r.ratio)}</td><td>${pct(r.loss_ratio)}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  const box=document.getElementById('fullTable'); box.innerHTML=h;
+  box.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>{state.salary=SALARIES[+tr.dataset.i];renderAll();});
+}
+
+/* ---------- 全国平均图 ---------- */
+function renderNational(){
+  const W=Math.max(680,document.getElementById('natChart').clientWidth||900),H=330;
+  const m={t:24,r:20,b:52,l:64},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const keys=[['unit_social',C.uniSoc.c],['unit_pf',C.uniPf.c],['ind_social',C.indSoc.c],['ind_pf',C.indPf.c],['monthly_tax',C.tax.c],['indirect_tax',C.indirect.c],['final_value',C.final.c]];
+  const maxCost=Math.max(...national.map(n=>n.company_cost));
+  const bw=iw/SALARIES.length*0.62, step=iw/SALARIES.length;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  for(let t=0;t<=4;t++){
+    const v=maxCost*t/4, y=m.t+ih*(1-t/4);
+    svg+=`<line class="gridline" x1="${m.l}" y1="${y}" x2="${W-m.r}" y2="${y}"/>`;
+    svg+=`<text class="axis" x="${m.l-9}" y="${y+4}" text-anchor="end">${fmt(v/1000)}k</text>`;
+  }
+  national.forEach((n,i)=>{
+    const x=m.l+step*i+step/2-bw/2;
+    let y=m.t+ih;
+    const total=n.company_cost;
+    keys.forEach(([k,c])=>{
+      const hgt=ih*n[k]/maxCost; y-=hgt;
+      svg+=`<rect x="${x}" y="${y}" width="${bw}" height="${Math.max(0.6,hgt)}" fill="${c}"><title>${k}</title></rect>`;
+    });
+    svg+=`<text class="axis" x="${x+bw/2}" y="${H-m.b+18}" text-anchor="middle">${SALARIES[i]>=10000?(SALARIES[i]/10000)+'万':SALARIES[i]}</text>`;
+    svg+=`<text class="axis" x="${x+bw/2}" y="${H-m.b+34}" text-anchor="middle" font-size="10" fill="#8b9aab">${pct(n.ratio)}</text>`;
+  });
+  svg+=`<text class="axis" x="14" y="${m.t-8}" font-size="12">公司实际人工成本（元/月）</text>`;
+  svg+='</svg>';
+  document.getElementById('natChart').innerHTML=svg;
+  // 明细表
+  let h='<table><thead><tr><th>月薪</th><th>公司成本</th><th>最终消费价值</th><th>占比</th></tr></thead><tbody>';
+  national.forEach(n=>{h+=`<tr><td>${fmt(n.salary)}</td><td>${fmt(n.company_cost)}</td><td class="pos">${fmt(n.final_value)}</td><td>${pct(n.ratio)}</td></tr>`;});
+  h+='</tbody></table>';
+  document.getElementById('natTable').innerHTML=h;
+
+  // 关键看点
+  const rs=national.map(n=>n.ratio);
+  const peak=rs.indexOf(Math.max(...rs)), trough=rs.indexOf(Math.min(...rs));
+  const at=(s)=>national[SALARIES.indexOf(s)];
+  const ins=[
+    ['最低点',`${fmt(SALARIES[trough])} 元档，占比仅 <b>${pct(rs[trough])}</b>：社保基数下限把实际缴费基数抬高，是低薪档最大的“隐形扣减”。`],
+    ['最高点',`${fmt(SALARIES[peak])} 元档，占比 <b>${pct(rs[peak])}</b>：高薪档社保与公积金基数已封顶，单位缴费不再随工资等比例增长。`],
+    ['个税的影响',`从 ${fmt(5000)} 元档（月均个税 ${fmt(at(5000).monthly_tax)} 元）到 ${fmt(20000)} 元档（${fmt(at(20000).monthly_tax)} 元），个税从几乎为零升至公司成本的 ${pct(at(20000).monthly_tax/at(20000).company_cost)}。`],
+    ['公积金的存在感',`${fmt(8000)} 元档下，单位+个人公积金合计 ${fmt(at(8000).unit_pf+at(8000).ind_pf)} 元，占公司成本 ${pct((at(8000).unit_pf+at(8000).ind_pf)/at(8000).company_cost)}——这笔钱是个人资产，但不在当月消费里。`],
+    ['到手现金率',`${fmt(8000)} 元档全国平均到手现金率 ${pct(at(8000).cash_ratio)}，而最终消费能力占比只有 ${pct(at(8000).ratio)}，差额来自消费环节间接税假设。`]
+  ];
+  document.getElementById('insights').innerHTML=ins.map(([k,v])=>`<div style="margin-bottom:10px"><b>${k}：</b>${v}</div>`).join('');
+}
+
+/* ---------- 政策参数卡 ---------- */
+const LV={high:'已核实',medium:'基本可信',low:'待核实',model:'模型值'};
+function renderPolicy(){
+  const p=PROV[state.prov];
+  const one=(title,conf,rows)=>{
+    const r=rows.filter(x=>x[1]!==undefined&&x[1]!==null);
+    return `<div class="param"><h4>${title}<span class="lv ${conf}">${LV[conf]}</span></h4>
+      <dl>${r.map(x=>`<dt>${x[0]}</dt><dd>${x[1]}</dd>`).join('')}</dl></div>`;
+  };
+  const pc=(x)=>x===null?'—':pct(x);
+  let h='';
+  h+=one('社保缴费基数上下限 · 养老',p.conf.base,[
+    ['缴费基数下限',fmt(p.base.pension[0])+' 元'],['缴费基数上限',fmt(p.base.pension[1])+' 元']]);
+  h+=one('职工医保（含生育）',p.conf.base,[
+    ['单位费率',pc(p.rates.medical_u)],['个人费率',pc(p.rates.medical_i)],
+    ['基数下限 / 上限',fmt(p.base.medical[0])+' / '+fmt(p.base.medical[1])+' 元'],
+    ['生育保险','已并入医保，单位费率中含生育保险']]);
+  h+=one('养老 / 失业 / 工伤（费率）',p.conf.rates,[
+    ['养老 单位 / 个人',pc(p.rates.pension_u)+' / '+pc(p.rates.pension_i)],
+    ['失业 单位 / 个人',pc(p.rates.unemp_u)+' / '+pc(p.rates.unemp_i)],
+    ['工伤 单位（一类行业）',pc(p.rates.injury_u)],
+    ['失业基数下限 / 上限',fmt(p.base.unemp[0])+' / '+fmt(p.base.unemp[1])+' 元']]);
+  h+=one('住房公积金',p.conf.pf,[
+    ['缴存基数下限',fmt(p.pf.lo)+' 元'],['缴存基数上限',fmt(p.pf.hi)+' 元'],
+    ['允许比例区间',pct(p.pf.ratio_range[0])+' ~ '+pct(p.pf.ratio_range[1])],
+    ['本表采用比例','单位 '+pc(p.pf.u)+' · 个人 '+pc(p.pf.i)]]);
+  h+=one('最低工资标准',p.conf.min_wage,[['月最低工资（省会/一类档）',fmt(p.min_wage)+' 元']]);
+  h+=one('个人所得税（全国统一）','high',[
+    ['年度基本减除费用',fmt(meta.basic_deduction_annual)+' 元'],
+    ['税率结构','3% / 10% / 20% / 25% / 30% / 35% / 45% 七级超额累进'],
+    ['专项附加扣除','本表按假设不计'],
+    ['税前可扣除项','个人社保缴费 + 个人公积金缴存（7% 在 12% 限额内，可全额扣除）']]);
+  h+=one('消费环节间接税','model',[['模型参数','含税消费支出的 10%'],['说明','统一假设，用于横向比较，非真实税率']]);
+  document.getElementById('policyCards').innerHTML=h;
+
+  // 来源
+  const src=p.src, nm={base:'社保缴费基数',pf:'住房公积金',min_wage:'最低工资',base_doc:'政策依据'};
+  let sh=`<div style="font-size:13.5px"><b>当前省份：${p.name}</b><ul class="note-list">`;
+  Object.entries(src).forEach(([k,v])=>{ if(v) sh+=`<li>${nm[k]||k}：${v.startsWith('http')?`<a href="${v}" target="_blank" rel="noopener">${v}</a>`:v}</li>`; });
+  sh+='</ul><div class="small muted">说明：本表逐省核对官方文件；未取到当年原文的项目已在“局限与不确定性”中列明。</div></div>';
+  document.getElementById('sources').innerHTML=sh;
+
+  document.getElementById('assumptions').innerHTML=[
+    '普通企业职工，按劳动关系正常参保；工资全年固定，一年按 12 个月计算。',
+    '不考虑年终奖、股权、奖金、兼职等综合所得，不考虑专项附加扣除、企业年金、补充公积金与商业保险。',
+    '逐险种计算缴费基数：<b>缴费基数 = min(max(月薪, 该险种下限), 该险种上限)</b>；医疗、失业、工伤在部分省份与养老不同，已分别设置。',
+    '个人承担养老、医疗、失业三项；单位承担养老、医疗（含生育）、失业、工伤四项；生育保险自 2019 年起并入医保，不重复计算。',
+    '住房公积金单位与个人各按 7% 测算（在各地允许区间内）；公积金是个人资产，计入公司人工成本，同时从当月可支配现金中扣除。',
+    '公司实际人工成本 = 税前月薪 + 单位社保 + 单位公积金；不含企业所得税、办公场地、设备、招聘等非普遍性成本。',
+    '年度应纳税所得额 = 年度工资收入 − 12×个人社保 − 12×个人公积金 − 60000 元基本减除费用 − 其他允许扣除项（本表为 0）。',
+    '年度个税按综合所得七级超额累进税率与速算扣除数计算，月均个税 = 年度个税 ÷ 12（不是某月预扣预缴数）。',
+    '个人税后到手现金 = 税前月薪 − 个人社保 − 个人公积金 − 月均个税；单位缴费不再从个人工资中重复扣除。',
+    '消费环节间接税 = 到手现金 × 10%，最终实际消费价值 = 到手现金 × 90%；两者均基于“当月可支配现金全部用于消费”的假设。',
+    '核心指标：最终实际消费能力占公司劳动成本比例 = 最终消费价值 ÷ 公司实际人工成本。',
+    '计算过程保留分与角，展示时金额四舍五入到元、比例保留 1 位小数；所有合计与占比均由未舍入中间值生成。'
+  ].map(x=>`<li>${x}</li>`).join('');
+
+  document.getElementById('limits').innerHTML=[
+    '<b>省级口径与城市口径混用：</b>广东采用广州口径（养老按全省标准、医保按广州市标准、公积金按广州市标准）；江苏取南京公积金、浙江取杭州、四川取成都、河南取郑州等省会口径。省内其他城市差异可能显著。',
+    '<b>计划单列市与省内差异城市未单独建模：</b>深圳、大连、青岛、宁波等地的社保或医保基数与所在省不同；河北、陕西、四川、福建等省医保基数存在市级差异。',
+    '<b>费率的不确定性：</b>各省医疗、失业、工伤费率多以“模型值”标注——这些费率由各地自行规定且部分处于阶段性降费期，本表采用公开常见口径，可能与最新文件存在 0.5~2 个百分点的差异。',
+    '<b>吉林：</b>采用 2025 社保年度（至 2026 年 6 月 30 日）标准，2026 年 7 月起新标准未核实。',
+    '<b>黑龙江、海南、贵州、西藏：</b>基数数值来自官方转载或政策汇编，建议以省级人社厅原文复核。',
+    '<b>最低工资：</b>湖南、广西、重庆、西藏、青海、宁夏、新疆等地的月最低工资标准未取到 2026 年最新官方值，采用最近一期数据，仅影响“是否低于最低工资”的提示。',
+    '<b>公积金基数上限：</b>部分省份未公布省会城市 2026 年度上限，本表按“上年度职工月平均工资 × 3 倍”模型估算，会高估或低估高薪档的公积金缴存额。',
+    '<b>消费端：</b>10% 是统一模型参数，真实消费结构中不同商品适用不同增值税率、且存在累退性，本表不能当作个人消费税账单。',
+    '<b>工伤保险：</b>按一类低风险行业基准费率估算，实际费率随行业类别与浮动费率在 0.2%~1.9% 之间变化。'
+  ].map(x=>`<li>${x}</li>`).join('');
+}
+
+/* ---------- 导出 CSV ---------- */
+function download(name,text){
+  const blob=new Blob(['\ufeff'+text],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+}
+const HEAD=['省份','税前月薪','单位社保','单位公积金','公司实际成本','个人社保','个人公积金','月均个税','到手现金','估算消费间接税','最终消费价值','消费价值/公司成本','实际现金到手率'];
+function rowsCsv(prov){
+  return ROWS[prov].map((r,i)=>[PROV[prov].name,SALARIES[i],r.unit_social.toFixed(2),r.unit_pf.toFixed(2),r.company_cost.toFixed(2),
+    r.ind_social.toFixed(2),r.ind_pf.toFixed(2),r.monthly_tax.toFixed(2),r.cash.toFixed(2),r.indirect_tax.toFixed(2),
+    r.final_value.toFixed(2),(r.ratio*100).toFixed(1)+'%',(r.cash_ratio*100).toFixed(1)+'%'].join(','));
+}
+document.getElementById('btnCsv').onclick=()=>download(`税费测算_${PROV[state.prov].name}.csv`,[HEAD.join(','),...rowsCsv(state.prov)].join('\n'));
+document.getElementById('btnCsvAll').onclick=()=>{
+  const lines=[HEAD.join(',')];
+  provinces.forEach(p=>lines.push(...rowsCsv(p.id)));
+  download('税费测算_全国31省_全档位.csv',lines.join('\n'));
+};
+document.getElementById('btnCsvNat').onclick=()=>{
+  const h=['税前月薪','平均公司成本','平均最终消费价值','平均占比','中位占比','最低占比','最高占比'];
+  const lines=[h.join(',')];
+  national.forEach(n=>lines.push([n.salary,n.company_cost.toFixed(2),n.final_value.toFixed(2),(n.ratio*100).toFixed(1)+'%',(n.ratio_median*100).toFixed(1)+'%',(n.ratio_min*100).toFixed(1)+'%',(n.ratio_max*100).toFixed(1)+'%'].join(',')));
+  download('税费测算_全国平均.csv',lines.join('\n'));
+};
+document.getElementById('heatSort').onclick=()=>{state.heatSort=state.heatSort==='salary'?'region':'salary';renderHeat();};
+
+/* ---------- 总渲染 ---------- */
+function renderAll(){
+  document.querySelectorAll('#salaryChips .chip').forEach(c=>c.classList.toggle('on',+c.dataset.s===state.salary));
+  buildCmpChips();
+  renderHero(); renderBreakdown(); renderCurve(); renderHeat(); renderRank(); renderTable(); renderNational(); renderPolicy();
+}
+renderAll();
+let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{renderCurve();renderNational();renderBreakdown();},160);});
+</script>
+</body>
+</html>
